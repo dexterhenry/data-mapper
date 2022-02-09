@@ -1,15 +1,11 @@
-import { CssBaseline } from "@mui/material";
 import React from "react";
-import TopAppBar from "./AppBar";
-import TemporaryDrawer from "./SideBar";
 import ThemeWrapper from "./Theme";
+import MainLayout from "./MainLayout";
 
 const Main = () => {
   return (
     <ThemeWrapper>
-      <CssBaseline />
-      <TopAppBar />
-      <TemporaryDrawer/>
+      <MainLayout />
     </ThemeWrapper>
   );
 };
