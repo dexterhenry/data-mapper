@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { grey } from "@mui/material/colors";
 
 const borderColor = grey[600],
-  headerBgColor = grey[300];
+headerBgColor = "#DCDCDC";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
