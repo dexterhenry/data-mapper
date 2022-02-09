@@ -2,13 +2,14 @@ import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { grey } from "@mui/material/colors";
 
-const borderColor = grey[600];
+const borderColor = grey[600],
+  headerBgColor = grey[300];
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     width: "100%",
     height: 300,
-    marginLeft: '-1rem',
+    marginLeft: "-1rem",
     backgroundColor: theme.palette.secondary.main,
     display: "flex",
     flexDirection: "column",
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   headerSection: {
     with: "100%",
     padding: "0.25rem",
+    backgroundColor: headerBgColor,
   },
   sourceWorkspaceWrapper: {
     width: "100%",
