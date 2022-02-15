@@ -24,7 +24,7 @@ const Mapping = () => {
 
   return (
     <Grid container spacing={2} className={classes.gridWrapper}>
-      <Grid container xs={12}>
+      <Grid container>
         <Grid item xs={12}>
           <MappingHeader />
         </Grid>

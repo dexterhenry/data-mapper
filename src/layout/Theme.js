@@ -1,3 +1,4 @@
+import { grey } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -8,6 +9,13 @@ const theme = createTheme({
     secondary: {
       main: "#FFFFFF",
     },
+    table: {
+      header:  '#DCDCDC'
+    },
+    mapping: {
+      headers: '#DCDCDC',
+      border:  grey[600]
+    }
   },
 });
 
