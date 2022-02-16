@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     width: "100%",
-    },
+  },
   headerSection: {
     with: "100%",
     padding: "0.25rem 1rem",

@@ -1,14 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { grey } from "@mui/material/colors";
-
-const borderColor = grey[600],
-headerBgColor = "#DCDCDC";
+import NestedList from "./ListView/NestedList";
+import SourceTableSearch from "./SourceTableSeacrh";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     width: "100%",
-    height: 300,
+    height: 330,
+    maxHeight: 330,
     marginLeft: "-1rem",
     backgroundColor: theme.palette.secondary.main,
     display: "flex",
@@ -17,12 +16,14 @@ const useStyles = makeStyles((theme) => ({
   headerSection: {
     with: "100%",
     padding: "0.25rem",
-    backgroundColor: headerBgColor,
+    backgroundColor: theme.palette.mapping.headers,
   },
-  sourceWorkspaceWrapper: {
+  targetWorkspaceWrapper: {
     width: "100%",
     height: "100%",
-    border: `1px solid ${borderColor}`,
+    maxHeight: 300,
+    overflowY: "auto",
+    border: `1px solid ${theme.palette.mapping.border}`,
   },
 }));
 
@@ -34,7 +35,10 @@ const TargetWorkspace = () => {
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Target workspace </Typography>
       </Box>
-      <Box className={classes.sourceWorkspaceWrapper}></Box>
+      <SourceTableSearch />
+      <Box className={classes.targetWorkspaceWrapper}>
+        <NestedList />
+      </Box>
     </Box>
   );
 };
