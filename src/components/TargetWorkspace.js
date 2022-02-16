@@ -1,7 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import NestedList from "./ListView/NestedList";
-import SourceTableSearch from "./SourceTableSeacrh";
+import TableSearch from "./TableSearch";
+import { data } from "./SourceWorkspace";
+import { useEffect, useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -28,16 +30,40 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TargetWorkspace = () => {
+  const [dataSchema, setDataSchema] = useState(data);
+  const [searchValue, setSearchValue] = useState("");
+
   const classes = useStyles();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setDataSchema(
+      dataSchema.filter((item) => {
+        return  item.label.toLowerCase().includes(searchValue);
+      })
+    );
+  };
+
+  const handleInputSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+
+  useEffect(() => {
+    searchValue === "" && setDataSchema(data);
+  }, [searchValue]);
 
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Target workspace </Typography>
       </Box>
-      <SourceTableSearch />
+      <TableSearch
+        handleSearch={handleSearch}
+        searchValue={searchValue}
+        handleInput={handleInputSearch}
+      />
       <Box className={classes.targetWorkspaceWrapper}>
-        <NestedList />
+        <NestedList data={dataSchema} />
       </Box>
     </Box>
   );
