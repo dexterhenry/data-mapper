@@ -15,6 +15,9 @@ const theme = createTheme({
     mapping: {
       headers: '#DCDCDC',
       border:  grey[600]
+    },
+    tree: {
+      border:  grey[300]
     }
   },
 });
