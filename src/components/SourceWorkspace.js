@@ -61,7 +61,7 @@ const getSourceData = () => [
             field_length: "length",
           },
           {
-            key: "citizenship_2",
+            key: "citizenship_12",
             label: "Citizenship 1",
             field_type: "type",
             field_length: "length",

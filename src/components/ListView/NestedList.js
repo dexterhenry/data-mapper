@@ -40,9 +40,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function NestedList({ subheader = "Subheader", data }) {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
+
   const classes = useStyles();
+
   return (
     <List
       className={classes.mainList}
@@ -52,7 +58,16 @@ export default function NestedList({ subheader = "Subheader", data }) {
         const { label, pickList } = item;
 
         if (!pickList) {
-          return <SingleListItem key={item.key} level={0} itemText={label} />;
+          return (
+            <SingleListItem
+              key={item.key}
+              level={0}
+              itemText={label}
+              selectedIndex={selectedIndex}
+              itemIndex={item.key}
+              handleListItemClick={handleListItemClick}
+            />
+          );
         } else {
           return (
             <CollapsibleListItem key={item.key} itemText={label} level={0}>
@@ -66,6 +81,9 @@ export default function NestedList({ subheader = "Subheader", data }) {
                       level={1}
                       itemText={label}
                       liClass={classes.lv2List}
+                      selectedIndex={selectedIndex}
+                      itemIndex={subItem.key}
+                      handleListItemClick={handleListItemClick}
                     />
                   );
                 }
@@ -82,6 +100,9 @@ export default function NestedList({ subheader = "Subheader", data }) {
                         level={2}
                         itemText={i.label}
                         liClass={classes.lv3List}
+                        selectedIndex={selectedIndex}
+                        itemIndex={i.key}
+                        handleListItemClick={handleListItemClick}
                       />
                     ))}
                   </CollapsibleListItem>
