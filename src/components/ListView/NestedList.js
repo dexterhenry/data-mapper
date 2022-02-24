@@ -8,7 +8,7 @@ import CollapsibleListItem from "./CollapsibleListItem";
 const useStyles = makeStyles((theme) => ({
   mainList: {
     width: "100%",
-    maxWidth: '100%',
+    maxWidth: "100%",
     backgroundColor: theme.palette.background.paper,
     "& .MuiListSubheader-root": {
       zIndex: 10,
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 export default function NestedList({ subheader = "Subheader", data, type }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const handleListItemClick = (event, index) => {
+  const handleListItemClick = (index) => {
     setSelectedIndex(index);
   };
 

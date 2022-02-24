@@ -43,7 +43,7 @@ const RelationsContextProvider = ({ children }) => {
     setIsDrawing(false);
   };
 
-  const onTargetMouseUp = (e, refSource) => {
+  const onTargetMouseUp = (e, refSource, itemIndex, handleListItemClick) => {
     const { x, y } = getPosition(refSource);
 
     // make sure you have a source
@@ -59,8 +59,11 @@ const RelationsContextProvider = ({ children }) => {
 
       // add relation
       setRelations([...relations, addCurrentRelation]);
+      // active target item
+      handleListItemClick(itemIndex);
     }
     //Always clean the relation
+
     setCurrentRelation(initialCurrentRelation);
     setIsDrawing(false);
   };

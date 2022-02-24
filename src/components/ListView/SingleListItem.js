@@ -65,13 +65,14 @@ const SingleListItem = ({
   const handleMouseDown = (e) =>
     type === SOURCE_TYPE ? onSourceMouseDown(e, divRef) : null;
   const handleMouseUp = (e) =>
-    type === TARGET_TYPE ? onTargetMouseUp(e, divRef) : onSourceMouseUp();
+    type === TARGET_TYPE ? onTargetMouseUp(e, divRef, itemIndex, handleItemClick) : onSourceMouseUp();
 
+  const handleItemClick = () => handleListItemClick( itemIndex) 
   return (
     <ListItem sx={{ pl: (level + 1) * 4 }} className={liClass}>
       <ListItemButton
         selected={isSelectedIndex}
-        onClick={(event) => handleListItemClick(event, itemIndex)}
+        onClick={handleItemClick}
         className={classes.listItemBtn}
       >
         <ListItemText primary={itemText} />
