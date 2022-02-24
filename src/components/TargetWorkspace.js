@@ -4,6 +4,7 @@ import NestedList from "./ListView/NestedList";
 import TableSearch from "./TableSearch";
 import { data } from "./SourceWorkspace";
 import { useEffect, useState } from "react";
+import { TARGET_TYPE } from "./Mapping";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -39,7 +40,7 @@ const TargetWorkspace = () => {
     e.preventDefault();
     setDataSchema(
       dataSchema.filter((item) => {
-        return  item.label.toLowerCase().includes(searchValue);
+        return item.label.toLowerCase().includes(searchValue);
       })
     );
   };
@@ -63,7 +64,7 @@ const TargetWorkspace = () => {
         handleInput={handleInputSearch}
       />
       <Box className={classes.targetWorkspaceWrapper}>
-        <NestedList data={dataSchema} />
+        <NestedList data={dataSchema} type={TARGET_TYPE} />
       </Box>
     </Box>
   );

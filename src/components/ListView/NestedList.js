@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function NestedList({ subheader = "Subheader", data }) {
+export default function NestedList({ subheader = "Subheader", data, type }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handleListItemClick = (event, index) => {
@@ -66,6 +66,7 @@ export default function NestedList({ subheader = "Subheader", data }) {
               selectedIndex={selectedIndex}
               itemIndex={item.key}
               handleListItemClick={handleListItemClick}
+              type={type}
             />
           );
         } else {
@@ -84,6 +85,7 @@ export default function NestedList({ subheader = "Subheader", data }) {
                       selectedIndex={selectedIndex}
                       itemIndex={subItem.key}
                       handleListItemClick={handleListItemClick}
+                      type={type}
                     />
                   );
                 }
@@ -103,6 +105,7 @@ export default function NestedList({ subheader = "Subheader", data }) {
                         selectedIndex={selectedIndex}
                         itemIndex={i.key}
                         handleListItemClick={handleListItemClick}
+                        type={type}
                       />
                     ))}
                   </CollapsibleListItem>

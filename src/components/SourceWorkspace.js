@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import NestedList from "./ListView/NestedList";
+import { SOURCE_TYPE } from "./Mapping";
 import TableSearch from "./TableSearch";
 
 const useStyles = makeStyles((theme) => ({
@@ -212,7 +213,7 @@ const SourceWorkspace = () => {
         handleInput={handleInputSearch}
       />
       <Box className={classes.sourceWorkspaceWrapper}>
-        <NestedList data={dataSchema} />
+        <NestedList data={dataSchema} type={SOURCE_TYPE} />
       </Box>
     </Box>
   );
