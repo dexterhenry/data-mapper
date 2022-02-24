@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import DrawerResult from "./Drawer/DrawerResult";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -22,7 +23,9 @@ const MappingWorkspace = () => {
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Mapping expression workspace </Typography>
       </Box>
-      <Box className={classes.mappingWorkspaceWrapper}></Box>
+      <Box className={classes.mappingWorkspaceWrapper}>
+        <DrawerResult />
+      </Box>
     </Box>
   );
 };
