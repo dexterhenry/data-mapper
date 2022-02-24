@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import { RelationsContext } from "../../context/RelationsContext";
 import useMousePosition from "../../hooks/useMousePosition";
-import Xarrow, { Xwrapper } from "react-xarrows";
+import Xarrow from "react-xarrows";
+import { green } from "@mui/material/colors";
+const lineColor = green[300],
+headColor = green[600]
 
 const DrawerResult = () => {
   const { isDrawing, relations } = useContext(RelationsContext);
@@ -21,6 +24,15 @@ const DrawerResult = () => {
           key={`${relation.sourceItem}-${relation.targetItem}-${index}-${index} `}
           start={relation.sourceItemId} //can be react ref
           end={relation.targetItemId} //or an id
+          color={lineColor}
+          headColor={headColor}
+          tailColor={headColor}
+          strokeWidth={1.5}
+          headSize={8}
+          tailSize={4} 
+          tailShape="circle"
+          showTail={true}
+          zIndex={10}
         />
       ))}
       
