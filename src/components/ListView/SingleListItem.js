@@ -1,5 +1,7 @@
 import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import TargetIcon from "@mui/icons-material/AdjustOutlined";
+import SourceIcon from "@mui/icons-material/HighlightAltOutlined";
 import { useContext, useRef } from "react";
 import { RelationsContext } from "../../context/RelationsContext";
 import { SOURCE_TYPE, TARGET_TYPE } from "../Mapping";
@@ -12,9 +14,12 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
     width: "1rem",
     height: "1rem",
     borderRadius: "50%",
-    border: "1px solid red",
+    // border: "1px solid red",
     transform: `translate(-50%, -50%)`,
     display: (isSelectedIndex) => (isSelectedIndex ? "block" : "none"),
+    "& svg": {
+      transform: "translate(-5px, -5px)",
+    },
   },
   targetListItem: {
     position: "absolute",
@@ -23,8 +28,11 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
     width: "1rem",
     height: "1rem",
     borderRadius: "50%",
-    border: "1px solid red",
+    // border: "1px solid red",
     transform: `translate(-50%, -50%)`,
+    "& svg": {
+      transform: "translate(-5px, -5px)",
+    },
   },
 }));
 
@@ -37,15 +45,21 @@ const SingleListItem = ({
   handleListItemClick,
   type,
 }) => {
-  const { isDrawing, onTargetMouseDown, onSourceMouseUp } =
+  const { isDrawing, onTargetMouseUp, onSourceMouseDown, onSourceMouseUp } =
     useContext(RelationsContext);
 
   const divRef = useRef({
     sourceItem: type === SOURCE_TYPE ? itemText : null,
     targetItem: type === TARGET_TYPE ? itemText : null,
   });
+
   let isSelectedIndex = selectedIndex === itemIndex;
   const classes = useStyles(isSelectedIndex);
+
+  const handleMouseDown = (e) =>
+    type === SOURCE_TYPE ? onSourceMouseDown(e, divRef) : null;
+  const handleMouseUp = (e) =>
+    type === TARGET_TYPE ? onTargetMouseUp(e, divRef) : onSourceMouseUp();
 
   return (
     <ListItem sx={{ pl: (level + 1) * 4 }} className={liClass}>
@@ -57,18 +71,16 @@ const SingleListItem = ({
         <div
           data-item={`${itemText}`}
           ref={divRef}
-          onMouseDown={
-            type === SOURCE_TYPE ? (e) => onTargetMouseDown(e, divRef) : null
-          }
-          onMouseUp={
-            type === TARGET_TYPE ? (e) => onSourceMouseUp(e, divRef) : null
-          }
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
           className={
             type === SOURCE_TYPE
               ? classes.sourceListItem
               : (isDrawing && classes.targetListItem) || ""
           }
-        ></div>
+        >
+          {type === SOURCE_TYPE ? <SourceIcon /> : isDrawing && <TargetIcon />}
+        </div>
       </ListItemButton>
     </ListItem>
   );

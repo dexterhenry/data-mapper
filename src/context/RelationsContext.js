@@ -24,25 +24,31 @@ const RelationsContextProvider = ({ children }) => {
 
   const [relations, setRelations] = useState([]);
 
-  const onTargetMouseDown = (e, refSource) => {
+  const onSourceMouseDown = (e, refSource) => {
     const { x, y } = getPosition(refSource);
-    setIsDrawing(true)
-     setCurrentRelation({
-        ...currentRelation,
-        sourceItem: refSource?.current.dataset['item'],
-        startX: x,
-        startY: y,
-      });
+    setIsDrawing(true);
+    setCurrentRelation({
+      ...currentRelation,
+      sourceItem: refSource?.current.dataset["item"],
+      startX: x,
+      startY: y,
+    });
   };
 
-  const onSourceMouseUp = (e, refSource) => {
+  const onSourceMouseUp = () => {
+    //Always clean the relation
+    setCurrentRelation(initialCurrentRelation);
+    setIsDrawing(false);
+  };
+
+  const onTargetMouseUp = (e, refSource) => {
     const { x, y } = getPosition(refSource);
 
     // make sure you have a source
     if (currentRelation.sourceItem) {
       const addCurrentRelation = {
         ...currentRelation,
-        targetItem: refSource?.current.dataset['item'],
+        targetItem: refSource?.current.dataset["item"],
         endX: x,
         endy: y,
       };
@@ -55,7 +61,13 @@ const RelationsContextProvider = ({ children }) => {
     setIsDrawing(false);
   };
 
-  const data = { isDrawing, relations, onTargetMouseDown, onSourceMouseUp };
+  const data = {
+    isDrawing,
+    relations,
+    onSourceMouseDown,
+    onSourceMouseUp,
+    onTargetMouseUp,
+  };
   return (
     <RelationsContext.Provider value={data}>
       {children}
