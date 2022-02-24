@@ -8,7 +8,7 @@ import CollapsibleListItem from "./CollapsibleListItem";
 const useStyles = makeStyles((theme) => ({
   mainList: {
     width: "100%",
-    maxWidth: 360,
+    maxWidth: '100%',
     backgroundColor: theme.palette.background.paper,
     "& .MuiListSubheader-root": {
       zIndex: 10,

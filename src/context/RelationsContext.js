@@ -30,6 +30,8 @@ const RelationsContextProvider = ({ children }) => {
     setCurrentRelation({
       ...currentRelation,
       sourceItem: refSource?.current.dataset["item"],
+      sourceItemRef: refSource,
+      sourceItemId: refSource?.current.id,
       startX: x,
       startY: y,
     });
@@ -49,8 +51,10 @@ const RelationsContextProvider = ({ children }) => {
       const addCurrentRelation = {
         ...currentRelation,
         targetItem: refSource?.current.dataset["item"],
+        targetItemRef: refSource,
+        targetItemId: refSource?.current.id,
         endX: x,
-        endy: y,
+        endY: y,
       };
 
       // add relation

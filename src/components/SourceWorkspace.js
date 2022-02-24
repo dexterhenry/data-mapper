@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
+import { useXarrow, Xwrapper } from "react-xarrows";
 import NestedList from "./ListView/NestedList";
 import { SOURCE_TYPE } from "./Mapping";
 import TableSearch from "./TableSearch";
@@ -189,7 +190,7 @@ const SourceWorkspace = () => {
     e.preventDefault();
     setDataSchema(
       dataSchema.filter((item) => {
-        return  item.label.toLowerCase().includes(searchValue);
+        return item.label.toLowerCase().includes(searchValue);
       })
     );
   };
@@ -202,6 +203,7 @@ const SourceWorkspace = () => {
     searchValue === "" && setDataSchema(data);
   }, [searchValue]);
 
+  const updateXarrow = useXarrow();
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
@@ -212,9 +214,12 @@ const SourceWorkspace = () => {
         searchValue={searchValue}
         handleInput={handleInputSearch}
       />
-      <Box className={classes.sourceWorkspaceWrapper}>
-        <NestedList data={dataSchema} type={SOURCE_TYPE} />
-      </Box>
+        <Box
+          className={classes.sourceWorkspaceWrapper}
+          onScroll={updateXarrow}
+        >
+          <NestedList data={dataSchema} type={SOURCE_TYPE} />
+        </Box>
     </Box>
   );
 };

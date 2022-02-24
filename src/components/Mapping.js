@@ -6,6 +6,10 @@ import SourceWorkspace from "../components/SourceWorkspace";
 import TargetWorkspace from "../components/TargetWorkspace";
 import { grey } from "@mui/material/colors";
 import MappingHeader from "./MappingHeader";
+import { Xwrapper } from "react-xarrows";
+import { Cursor } from "./cursor/Cursor";
+import { useContext } from "react";
+import { RelationsContext } from "../context/RelationsContext";
 
 const bgColor = grey[100];
 export const SOURCE_TYPE = "source";
@@ -23,29 +27,40 @@ const useStyles = makeStyles((theme) => ({
 
 const Mapping = () => {
   const classes = useStyles();
+  const { onSourceMouseUp } = useContext(RelationsContext);
+
+  const handleMouseUp = () => onSourceMouseUp();
 
   return (
-    <Grid container spacing={2} className={classes.gridWrapper}>
-      <Grid container>
+    <Xwrapper>
+      <Grid
+        container
+        spacing={2}
+        className={classes.gridWrapper}
+        onMouseUp={handleMouseUp}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            <MappingHeader />
+          </Grid>
+        </Grid>
         <Grid item xs={12}>
-          <MappingHeader />
-        </Grid>
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={2} className={classes.mappingWrapper}>
-          <Grid item xs={5}>
-            <SourceWorkspace />
-          </Grid>
-          <Grid item xs={2}></Grid>
-          <Grid item xs={5}>
-            <TargetWorkspace />
+          <Grid container spacing={2} className={classes.mappingWrapper}>
+            <Grid item xs={5}>
+              <SourceWorkspace />
+            </Grid>
+            <Grid item xs={2}></Grid>
+            <Grid item xs={5}>
+              <TargetWorkspace />
+            </Grid>
           </Grid>
         </Grid>
+        <Grid item xs={12}>
+          <MappingWorkspace />
+        </Grid>
       </Grid>
-      <Grid item xs={12}>
-        <MappingWorkspace />
-      </Grid>
-    </Grid>
+      <Cursor />
+    </Xwrapper>
   );
 };
 

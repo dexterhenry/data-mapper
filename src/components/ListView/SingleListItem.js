@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
     borderRadius: "50%",
     // border: "1px solid red",
     transform: `translate(-50%, -50%)`,
-    display: (isSelectedIndex) => (isSelectedIndex ? "block" : "none"),
+    // display: (isSelectedIndex) => (isSelectedIndex ? "block" : "block"),
+    opacity: (isSelectedIndex) => (isSelectedIndex ? 1 : 0),
     "& svg": {
       transform: "translate(-5px, -5px)",
     },
@@ -69,6 +70,7 @@ const SingleListItem = ({
       >
         <ListItemText primary={itemText} />
         <div
+          id={`${type}-${itemIndex}`}
           data-item={`${itemText}`}
           ref={divRef}
           onMouseDown={handleMouseDown}
@@ -76,7 +78,7 @@ const SingleListItem = ({
           className={
             type === SOURCE_TYPE
               ? classes.sourceListItem
-              : (isDrawing && classes.targetListItem) || ""
+              : (classes.targetListItem) 
           }
         >
           {type === SOURCE_TYPE ? <SourceIcon /> : isDrawing && <TargetIcon />}

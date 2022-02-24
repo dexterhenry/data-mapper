@@ -3,8 +3,9 @@ import { makeStyles } from "@mui/styles";
 import NestedList from "./ListView/NestedList";
 import TableSearch from "./TableSearch";
 import { data } from "./SourceWorkspace";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TARGET_TYPE } from "./Mapping";
+import { useXarrow } from "react-xarrows";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const TargetWorkspace = () => {
   const [dataSchema, setDataSchema] = useState(data);
   const [searchValue, setSearchValue] = useState("");
+  const boxRef = useRef();
 
   const classes = useStyles();
 
@@ -53,6 +55,7 @@ const TargetWorkspace = () => {
     searchValue === "" && setDataSchema(data);
   }, [searchValue]);
 
+  const updateXarrow = useXarrow();
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
@@ -63,7 +66,7 @@ const TargetWorkspace = () => {
         searchValue={searchValue}
         handleInput={handleInputSearch}
       />
-      <Box className={classes.targetWorkspaceWrapper}>
+      <Box ref={boxRef} className={classes.targetWorkspaceWrapper} onScroll={updateXarrow} onresize={()=>{console.log('resize')}}>
         <NestedList data={dataSchema} type={TARGET_TYPE} />
       </Box>
     </Box>
