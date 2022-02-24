@@ -35,6 +35,11 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
       transform: "translate(-5px, -5px)",
     },
   },
+  listItemBtn: {
+    "&.Mui-selected": {
+      backgroundColor: `${theme.palette.tree.activeItem} !important`,
+    },
+  },
 }));
 
 const SingleListItem = ({
@@ -67,6 +72,7 @@ const SingleListItem = ({
       <ListItemButton
         selected={isSelectedIndex}
         onClick={(event) => handleListItemClick(event, itemIndex)}
+        className={classes.listItemBtn}
       >
         <ListItemText primary={itemText} />
         <div
@@ -78,7 +84,7 @@ const SingleListItem = ({
           className={
             type === SOURCE_TYPE
               ? classes.sourceListItem
-              : (classes.targetListItem) 
+              : classes.targetListItem
           }
         >
           {type === SOURCE_TYPE ? <SourceIcon /> : isDrawing && <TargetIcon />}

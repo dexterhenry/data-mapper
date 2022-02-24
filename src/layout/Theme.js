@@ -10,15 +10,16 @@ const theme = createTheme({
       main: "#FFFFFF",
     },
     table: {
-      header:  '#DCDCDC'
+      header: "#DCDCDC",
     },
     mapping: {
-      headers: '#DCDCDC',
-      border:  grey[600]
+      headers: "#DCDCDC",
+      border: grey[600],
     },
     tree: {
-      border:  grey[300]
-    }
+      border: grey[300],
+      activeItem: "#A7C7E7",
+    },
   },
 });
 
