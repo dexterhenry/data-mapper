@@ -19,10 +19,12 @@ const useMousePosition = (active) => {
   useEffect(() => {
     document.addEventListener("mousemove", updatePosition, false);
     document.addEventListener("mouseenter", updatePosition, false);
+    document.addEventListener("mousedown", updatePosition, false);
 
     return () => {
       document.removeEventListener("mousemove", updatePosition);
       document.removeEventListener("mouseenter", updatePosition);
+      document.removeEventListener("mousedown", updatePosition);
     };
   }, [active]);
 
