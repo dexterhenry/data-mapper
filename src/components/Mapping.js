@@ -8,6 +8,8 @@ import { grey } from "@mui/material/colors";
 import MappingHeader from "./MappingHeader";
 
 const bgColor = grey[100];
+export const SOURCE_TYPE = "source";
+export const TARGET_TYPE = "target";
 
 const useStyles = makeStyles((theme) => ({
   gridWrapper: {
