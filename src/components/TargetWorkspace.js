@@ -56,6 +56,7 @@ const TargetWorkspace = () => {
   }, [searchValue]);
 
   const updateXarrow = useXarrow();
+
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
@@ -66,7 +67,11 @@ const TargetWorkspace = () => {
         searchValue={searchValue}
         handleInput={handleInputSearch}
       />
-      <Box ref={boxRef} className={classes.targetWorkspaceWrapper} onScroll={updateXarrow} onresize={()=>{console.log('resize')}}>
+      <Box
+        ref={boxRef}
+        className={classes.targetWorkspaceWrapper}
+        onScroll={updateXarrow}
+      >
         <NestedList data={dataSchema} type={TARGET_TYPE} />
       </Box>
     </Box>
