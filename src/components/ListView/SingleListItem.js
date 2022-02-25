@@ -1,8 +1,13 @@
-import { ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import TargetIcon from "@mui/icons-material/AdjustOutlined";
 import SourceIcon from "@mui/icons-material/HighlightAltOutlined";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { RelationsContext } from "../../context/RelationsContext";
 import { SOURCE_TYPE, TARGET_TYPE } from "../Mapping";
 
@@ -51,8 +56,15 @@ const SingleListItem = ({
   handleListItemClick,
   type,
 }) => {
-  const { isDrawing, onTargetMouseUp, onSourceMouseDown, onSourceMouseUp } =
-    useContext(RelationsContext);
+  const {
+    isDrawing,
+    onTargetMouseUp,
+    onSourceMouseDown,
+    onSourceMouseUp,
+    getOccurence,
+    relations,
+  } = useContext(RelationsContext);
+  const [ocurrence, setOcurrence] = useState(getOccurence(itemText, type));
 
   const divRef = useRef({
     sourceItem: type === SOURCE_TYPE ? itemText : null,
@@ -65,9 +77,16 @@ const SingleListItem = ({
   const handleMouseDown = (e) =>
     type === SOURCE_TYPE ? onSourceMouseDown(e, divRef) : null;
   const handleMouseUp = (e) =>
-    type === TARGET_TYPE ? onTargetMouseUp(e, divRef, itemIndex, handleItemClick) : onSourceMouseUp();
+    type === TARGET_TYPE
+      ? onTargetMouseUp(e, divRef, itemIndex, handleItemClick)
+      : onSourceMouseUp();
 
-  const handleItemClick = () => handleListItemClick( itemIndex) 
+  const handleItemClick = () => handleListItemClick(itemIndex);
+
+  useEffect(() => {
+    setOcurrence(getOccurence(itemText, type));
+  }, [relations]);
+  
   return (
     <ListItem sx={{ pl: (level + 1) * 4 }} className={liClass}>
       <ListItemButton
@@ -76,6 +95,7 @@ const SingleListItem = ({
         className={classes.listItemBtn}
       >
         <ListItemText primary={itemText} />
+        <Typography mr={3}>{ocurrence}</Typography>
         <div
           id={`${type}-${itemIndex}`}
           data-item={`${itemText}`}
