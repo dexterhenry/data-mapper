@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     "& .MuiListSubheader-root": {
       zIndex: 10,
+      backgroundColor: theme.palette.table.header,
     },
   },
   lv2List: {
@@ -38,9 +39,29 @@ const useStyles = makeStyles((theme) => ({
       borderLeft: `3px dashed ${theme.palette.tree.border}`,
     },
   },
+  subheaderWrapper: {
+    display: "flex",
+    alignItems: "center",
+    width: "100%",
+    height: "40px",
+    justifyContent: "space-between",
+    backgroundColor: theme.palette.table.header,
+  },
+  subheaderOccurence: {
+    paddingRight: "1rem",
+  },
 }));
 
-export default function NestedList({ subheader = "Subheader", data, type }) {
+const subheader = ({ classes }) => {
+  return (
+    <div className={classes.subheaderWrapper}>
+      <p>Structure</p>
+      <p className={classes.subheaderOccurence}>Occurence</p>
+    </div>
+  );
+};
+
+export default function NestedList({ data, type }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const handleListItemClick = (index) => {
@@ -52,7 +73,7 @@ export default function NestedList({ subheader = "Subheader", data, type }) {
   return (
     <List
       className={classes.mainList}
-      subheader={<ListSubheader>{subheader}</ListSubheader>}
+      subheader={<ListSubheader>{subheader({ classes })}</ListSubheader>}
     >
       {data.map((item) => {
         const { label, pickList } = item;
