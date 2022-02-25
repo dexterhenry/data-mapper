@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
     height: "32px",
+    zIndex: 10
   },
   searchInput: {
     marginLeft: "8px",
