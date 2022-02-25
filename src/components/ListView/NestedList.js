@@ -4,6 +4,7 @@ import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import SingleListItem from "./SingleListItem";
 import CollapsibleListItem from "./CollapsibleListItem";
+import { Box } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
   mainList: {
@@ -11,8 +12,20 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     backgroundColor: theme.palette.background.paper,
     "& .MuiListSubheader-root": {
+      marginBottom: 8,
       zIndex: 10,
       backgroundColor: theme.palette.table.header,
+    },
+    "& .MuiListItem-root": {
+      paddingTop: 0,
+      paddingBottom: 0,
+      position: "sticky",
+      top: -8,
+      bottom: -18,
+      "& .MuiListItemButton-root": {
+        paddingTop: 0,
+        paddingBottom: 0,
+      },
     },
   },
   lv2List: {
@@ -49,6 +62,14 @@ const useStyles = makeStyles((theme) => ({
   },
   subheaderOccurence: {
     paddingRight: "1rem",
+  },
+  endWrapperBox: {
+    width: "100%",
+    height: 15,
+    backgroundColor: "white",
+    position: "sticky",
+    bottom: 0,
+    zIndex: 100,
   },
 }));
 
@@ -136,6 +157,7 @@ export default function NestedList({ data, type }) {
           );
         }
       })}
+      <Box className={classes.endWrapperBox} />
     </List>
   );
 }
