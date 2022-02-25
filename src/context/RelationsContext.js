@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import { SOURCE_TYPE } from "../components/Mapping";
 
 export const RelationsContext = createContext();
 
@@ -68,12 +69,30 @@ const RelationsContextProvider = ({ children }) => {
     setIsDrawing(false);
   };
 
+  const getOccurence = (item, type) => {
+    let ocurrence = { source: 0, target: 0 };
+    const sourceOcurrence = relations.filter((el) => el.sourceItem === item).length;
+    const targetOcurrence = relations.filter((el) => el.targetItem === item).length;
+    ocurrence =
+      type === SOURCE_TYPE
+        ? (ocurrence = {
+            source: sourceOcurrence > 0 ? 1 : 0,
+            target: sourceOcurrence,
+          })
+        :  (ocurrence = {
+          source: targetOcurrence > 0 ? 1 : 0,
+          target: targetOcurrence,
+        })
+    return `${ocurrence.source}:${ocurrence.target}`;
+  };
+
   const data = {
     isDrawing,
     relations,
     onSourceMouseDown,
     onSourceMouseUp,
     onTargetMouseUp,
+    getOccurence,
   };
   return (
     <RelationsContext.Provider value={data}>
