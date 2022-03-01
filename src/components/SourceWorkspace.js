@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useXarrow } from "react-xarrows";
 import NestedList from "./ListView/NestedList";
 import { SOURCE_TYPE } from "./Mapping";
@@ -176,6 +176,15 @@ const getSourceData = () => [
       },
     ],
   },
+  {
+    key: "created_for_tes",
+    label: "testing",
+    titleTable: "PerPersonal",
+    field_name: "testing",
+    field_type: "string",
+    field_length: 100,
+    pickList: null,
+  },
 ];
 
 export const data = getSourceData();
@@ -183,7 +192,7 @@ export const data = getSourceData();
 const SourceWorkspace = () => {
   const [dataSchema, setDataSchema] = useState(data);
   const [searchValue, setSearchValue] = useState("");
-
+  const sourceWrapperRef = useRef();
   const classes = useStyles();
 
   const handleSearch = (e) => {
@@ -213,9 +222,17 @@ const SourceWorkspace = () => {
         handleSearch={handleSearch}
         searchValue={searchValue}
         handleInput={handleInputSearch}
+        id={'source-wrapper-box-search'}
       />
-      <Box className={classes.sourceWorkspaceWrapper} onScroll={updateXarrow}>
-        <NestedList data={dataSchema} type={SOURCE_TYPE} />
+      <Box
+        ref={sourceWrapperRef}
+        className={classes.sourceWorkspaceWrapper}
+        onScroll={updateXarrow}
+      >
+        <NestedList
+          data={dataSchema}
+          type={SOURCE_TYPE}
+        />
       </Box>
     </Box>
   );
