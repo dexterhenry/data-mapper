@@ -58,8 +58,16 @@ const RelationsContextProvider = ({ children }) => {
         endY: y,
       };
 
+      const existRelation =
+        relations.filter((rel) => {
+          return (
+            rel.targetItem === addCurrentRelation.targetItem &&
+            rel.sourceItem === addCurrentRelation.sourceItem
+          );
+        }).length < 1;
+
       // add relation
-      setRelations([...relations, addCurrentRelation]);
+      existRelation && setRelations([...relations, addCurrentRelation]);
       // active target item
       handleListItemClick(itemIndex);
     }
@@ -71,18 +79,22 @@ const RelationsContextProvider = ({ children }) => {
 
   const getOccurence = (item, type) => {
     let ocurrence = { source: 0, target: 0 };
-    const sourceOcurrence = relations.filter((el) => el.sourceItem === item).length;
-    const targetOcurrence = relations.filter((el) => el.targetItem === item).length;
+    const sourceOcurrence = relations.filter(
+      (el) => el.sourceItem === item
+    ).length;
+    const targetOcurrence = relations.filter(
+      (el) => el.targetItem === item
+    ).length;
     ocurrence =
       type === SOURCE_TYPE
         ? (ocurrence = {
             source: sourceOcurrence > 0 ? 1 : 0,
             target: sourceOcurrence,
           })
-        :  (ocurrence = {
-          source: targetOcurrence > 0 ? 1 : 0,
-          target: targetOcurrence,
-        })
+        : (ocurrence = {
+            source: targetOcurrence > 0 ? 1 : 0,
+            target: targetOcurrence,
+          });
     return `${ocurrence.source}:${ocurrence.target}`;
   };
 
