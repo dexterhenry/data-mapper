@@ -12,7 +12,11 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
     backgroundColor: theme.palette.mapping.headers,
   },
-  mappingWorkspaceWrapper: {},
+  mappingWorkspaceWrapper: {
+    maxWidth: '80%',
+    display: 'flex',
+    alignContent: "center",
+  },
 }));
 
 const MappingWorkspace = () => {
