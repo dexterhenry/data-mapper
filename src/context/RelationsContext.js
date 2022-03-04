@@ -77,7 +77,7 @@ const RelationsContextProvider = ({ children }) => {
     setIsDrawing(false);
   };
 
-  const getOccurence = (item, type) => {
+  const getOccurrence = (item, type) => {
     let ocurrence = { source: 0, target: 0 };
     const sourceOcurrence = relations.filter(
       (el) => el.sourceItem === item
@@ -104,7 +104,7 @@ const RelationsContextProvider = ({ children }) => {
     onSourceMouseDown,
     onSourceMouseUp,
     onTargetMouseUp,
-    getOccurence,
+    getOccurrence,
   };
   return (
     <RelationsContext.Provider value={data}>
