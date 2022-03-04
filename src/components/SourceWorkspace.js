@@ -222,12 +222,12 @@ const SourceWorkspace = () => {
         handleSearch={handleSearch}
         searchValue={searchValue}
         handleInput={handleInputSearch}
-        id={'source-wrapper-box-search'}
       />
       <Box
         ref={sourceWrapperRef}
         className={classes.sourceWorkspaceWrapper}
         onScroll={updateXarrow}
+        data-id={'source-wrapper-box'}
       >
         <NestedList
           data={dataSchema}

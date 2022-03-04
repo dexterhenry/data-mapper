@@ -71,6 +71,7 @@ const TargetWorkspace = () => {
         ref={boxRef}
         className={classes.targetWorkspaceWrapper}
         onScroll={updateXarrow}
+        data-id={'target-wrapper-box'}
       >
         <NestedList data={dataSchema} type={TARGET_TYPE} />
       </Box>
