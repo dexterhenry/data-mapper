@@ -128,6 +128,7 @@ export default function NestedList({ data, type }) {
                       itemIndex={subItem.key}
                       handleListItemClick={handleListItemClick}
                       type={type}
+                      isObservable={true}
                     />
                   );
                 }
@@ -148,6 +149,7 @@ export default function NestedList({ data, type }) {
                         itemIndex={i.key}
                         handleListItemClick={handleListItemClick}
                         type={type}
+                        isObservable={true}
                       />
                     ))}
                   </CollapsibleListItem>
