@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: 0,
       position: "sticky",
       top: -8,
-      bottom: -18,
+      bottom: -17,
       "& .MuiListItemButton-root": {
         paddingTop: 0,
         paddingBottom: 0,

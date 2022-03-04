@@ -16,17 +16,14 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
   sourceListItem: {
     position: "absolute",
     right: 0,
-    top: "50%",
+    top: "40%",
     width: "1rem",
     height: "1rem",
     borderRadius: "50%",
     transform: `translate(-50%, -50%)`,
     opacity: (isSelectedIndex) => (isSelectedIndex ? 1 : 0),
     "& svg": {
-      transform: "translate(-5px, -5px)",
-      position: "sticky",
-      top: -8,
-      bottom: -18,
+      transform: "translate(-5px, -2px)",
     },
   },
   targetListItem: {
@@ -39,9 +36,6 @@ const useStyles = makeStyles((theme, isSelectedIndex) => ({
     transform: `translate(-50%, -50%)`,
     "& svg": {
       transform: "translate(-5px, -5px)",
-      position: "sticky",
-      top: -8,
-      bottom: -18,
     },
   },
   listItemBtn: {
@@ -94,7 +88,7 @@ const SingleListItem = ({
     if (isIntersecting) {
       //is visible on list
       style.position = "absolute";
-      style.top = "50%";
+      style.top = "40%";
       style.left = "";
       style.opacity = "";
     } else {
