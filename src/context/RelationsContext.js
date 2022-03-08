@@ -5,7 +5,9 @@ export const RelationsContext = createContext();
 
 const initialCurrentRelation = {
   sourceItem: null,
+  sourceItemType: null,
   targetItem: null,
+  targetItemType: null,
   startX: 0,
   startY: 0,
   endX: 0,
@@ -25,12 +27,15 @@ const RelationsContextProvider = ({ children }) => {
 
   const [relations, setRelations] = useState([]);
 
+  const [relationFault, setRelationFault] = useState(false);
+
   const onSourceMouseDown = (e, refSource) => {
     const { x, y } = getPosition(refSource);
     setIsDrawing(true);
     setCurrentRelation({
       ...currentRelation,
       sourceItem: refSource?.current.dataset["item"],
+      sourceItemType: refSource?.current.dataset["sourceType"],
       sourceItemRef: refSource,
       sourceItemId: refSource?.current.id,
       startX: x,
@@ -52,6 +57,7 @@ const RelationsContextProvider = ({ children }) => {
       const addCurrentRelation = {
         ...currentRelation,
         targetItem: refSource?.current.dataset["item"],
+        targetItemType: refSource?.current.dataset["targetType"],
         targetItemRef: refSource,
         targetItemId: refSource?.current.id,
         endX: x,
@@ -66,13 +72,19 @@ const RelationsContextProvider = ({ children }) => {
           );
         }).length < 1;
 
+      const { targetItemType, sourceItemType } = addCurrentRelation;
+
+      const isAvailable = targetItemType === sourceItemType;
       // add relation
-      existRelation && setRelations([...relations, addCurrentRelation]);
+      existRelation &&
+        isAvailable &&
+        setRelations([...relations, addCurrentRelation]);
       // active target item
-      handleListItemClick(itemIndex);
+      isAvailable && handleListItemClick(itemIndex);
+      //activate relation fault
+      !isAvailable && setRelationFault(`Different data types, source type: ${sourceItemType.toUpperCase()} and target type ${targetItemType.toUpperCase()}`);
     }
     //Always clean the relation
-
     setCurrentRelation(initialCurrentRelation);
     setIsDrawing(false);
   };
@@ -100,7 +112,9 @@ const RelationsContextProvider = ({ children }) => {
 
   const data = {
     isDrawing,
+    relationFault,
     relations,
+    setRelationFault,
     onSourceMouseDown,
     onSourceMouseUp,
     onTargetMouseUp,

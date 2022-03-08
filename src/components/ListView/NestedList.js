@@ -5,6 +5,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import SingleListItem from "./SingleListItem";
 import CollapsibleListItem from "./CollapsibleListItem";
 import { Box } from "@mui/material";
+import { SOURCE_TYPE, TARGET_TYPE } from "../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   mainList: {
@@ -97,7 +98,10 @@ export default function NestedList({ data, type }) {
       subheader={<ListSubheader>{subheader({ classes })}</ListSubheader>}
     >
       {data.map((item) => {
-        const { label, pickList } = item;
+        const { label, pickList, field_type } = item;
+
+        let sourceType = type === SOURCE_TYPE ? field_type : "",
+          targetType = type === TARGET_TYPE ? field_type : "";
 
         if (!pickList) {
           return (
@@ -109,13 +113,17 @@ export default function NestedList({ data, type }) {
               itemIndex={item.key}
               handleListItemClick={handleListItemClick}
               type={type}
+              itemSourceType={sourceType}
+              itemTargetType={targetType}
             />
           );
         } else {
           return (
             <CollapsibleListItem key={item.key} itemText={label} level={0}>
               {pickList.map((subItem) => {
-                const { label, pickList } = subItem;
+                const { label, pickList, field_type } = subItem;
+                let subItemSourceType = type === SOURCE_TYPE ? field_type : "",
+                  subItemTargetType = type === TARGET_TYPE ? field_type : "";
 
                 if (!pickList) {
                   return (
@@ -129,6 +137,8 @@ export default function NestedList({ data, type }) {
                       handleListItemClick={handleListItemClick}
                       type={type}
                       isObservable={true}
+                      itemSourceType={subItemSourceType}
+                      itemTargetType={subItemTargetType}
                     />
                   );
                 }
@@ -150,6 +160,12 @@ export default function NestedList({ data, type }) {
                         handleListItemClick={handleListItemClick}
                         type={type}
                         isObservable={true}
+                        itemSourceType={
+                          type === SOURCE_TYPE ? i.field_type : ""
+                        }
+                        itemTargetType={
+                          type === TARGET_TYPE ? i.field_type : ""
+                        }
                       />
                     ))}
                   </CollapsibleListItem>

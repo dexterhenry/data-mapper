@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Alert, Grid, Snackbar } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 import MappingWorkspace from "../components/MappingWorkspace";
@@ -27,9 +27,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Mapping = () => {
   const classes = useStyles();
-  const { onSourceMouseUp } = useContext(RelationsContext);
+  const { onSourceMouseUp, relationFault, setRelationFault } =
+    useContext(RelationsContext);
 
   const handleMouseUp = () => onSourceMouseUp();
+  const handleCloseAlert = () => setRelationFault(false);
 
   return (
     <Xwrapper>
@@ -60,6 +62,19 @@ const Mapping = () => {
         </Grid>
       </Grid>
       <Cursor />
+      <Snackbar
+        open={relationFault}
+        autoHideDuration={7000}
+        onClose={handleCloseAlert}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <Alert onClose={handleCloseAlert} severity="error">
+          {relationFault}
+        </Alert>
+      </Snackbar>
     </Xwrapper>
   );
 };

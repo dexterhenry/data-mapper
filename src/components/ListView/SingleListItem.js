@@ -53,6 +53,8 @@ const SingleListItem = ({
   itemIndex,
   handleListItemClick,
   type,
+  itemSourceType,
+  itemTargetType,
   isObservable = false,
 }) => {
   const {
@@ -83,8 +85,8 @@ const SingleListItem = ({
 
   const handleObserverSourceItem = (entries) => {
     const { isIntersecting, rootBounds, boundingClientRect } = entries[0];
-    console.log({ root: rootBounds.y, target: boundingClientRect.y });
-    const { style } = divRef.current;
+    // console.log({ root: rootBounds.y, target: boundingClientRect.y });
+    const { style } = divRef?.current;
     if (isIntersecting) {
       //is visible on list
       style.position = "absolute";
@@ -178,6 +180,8 @@ const SingleListItem = ({
         <div
           id={`${type}-${itemIndex}`}
           data-item={`${itemText}`}
+          data-source-type={`${itemSourceType}`}
+          data-target-type={`${itemTargetType}`}
           ref={divRef}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
