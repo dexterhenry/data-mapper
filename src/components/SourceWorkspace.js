@@ -199,7 +199,7 @@ const SourceWorkspace = () => {
     e.preventDefault();
     setDataSchema(
       dataSchema.filter((item) => {
-        return item.label.toLowerCase().includes(searchValue);
+        return item.label.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
   };
