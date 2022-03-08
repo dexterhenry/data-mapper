@@ -63,7 +63,7 @@ const Mapping = () => {
       </Grid>
       <Cursor />
       <Snackbar
-        open={relationFault}
+        open={Boolean(relationFault)}
         autoHideDuration={7000}
         onClose={handleCloseAlert}
         anchorOrigin={{
