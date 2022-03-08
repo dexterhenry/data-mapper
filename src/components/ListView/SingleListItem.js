@@ -4,7 +4,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { makeStyles, styled } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 import TargetIcon from "@mui/icons-material/AdjustOutlined";
 import SourceIcon from "@mui/icons-material/HighlightAltOutlined";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -85,7 +85,6 @@ const SingleListItem = ({
 
   const handleObserverSourceItem = (entries) => {
     const { isIntersecting, rootBounds, boundingClientRect } = entries[0];
-    // console.log({ root: rootBounds.y, target: boundingClientRect.y });
     const { style } = divRef?.current;
     if (isIntersecting) {
       //is visible on list
@@ -114,12 +113,21 @@ const SingleListItem = ({
     const { style } = divRef.current;
     if (isIntersecting) {
       //is visible on list
+      style.position = "absolute";
+      style.opacity = 1;
+      style.left = "8px";
+      style.top = "15%";
     } else {
       //is out of view
-      const { right, bottom } = rootBounds;
+      const { left, bottom, top, y: rootY } = rootBounds;
+      const { y: targetY } = boundingClientRect;
+
+      const isUp = rootY > targetY,
+        elementTop = isUp ? `${top + 10}px` : `${bottom - 8}px`;
+      style.position = "fixed";
       style.opacity = -1;
-      style.top = `${bottom - 25}px`;
-      style.left = `${right - 80}px`;
+      style.top = elementTop;
+      style.left = `${left - 30}px`;
       updateXarrow();
     }
   };
@@ -152,14 +160,14 @@ const SingleListItem = ({
       observer.observe(listRef.current);
     }
 
-    // if (type === TARGET_TYPE && isObservable) {
-    //   let observer = new IntersectionObserver(
-    //     handleObserverTargetItem,
-    //     observerTargetOptions
-    //   );
+    if (type === TARGET_TYPE && isObservable) {
+      let observer = new IntersectionObserver(
+        handleObserverTargetItem,
+        observerTargetOptions
+      );
 
-    //   observer.observe(listRef.current);
-    // }
+      observer.observe(listRef.current);
+    }
 
     return () => {
       if (observer) {
