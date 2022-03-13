@@ -3,15 +3,16 @@ import { Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import RemoveIcon from "@mui/icons-material/PlaylistRemove";
 import CopyIcon from "@mui/icons-material/FileCopyOutlined";
-import ListAddIcon from "@mui/icons-material/PlaylistAdd";
+import FileUploadWorkspace from "./FileUploadWorkspace";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "2rem",
     display: "flex",
-    marginTop: "-30px"
+    marginTop: "-30px",
   },
 }));
+
 const ActionsWorkspace = () => {
   const classes = useStyles();
 
@@ -20,9 +21,7 @@ const ActionsWorkspace = () => {
       <IconButton aria-label="copy">
         <CopyIcon />
       </IconButton>
-      <IconButton aria-label="add">
-        <ListAddIcon />
-      </IconButton>
+      <FileUploadWorkspace />
       <IconButton aria-label="delete">
         <RemoveIcon />
       </IconButton>
