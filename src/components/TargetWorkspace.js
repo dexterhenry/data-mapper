@@ -6,6 +6,7 @@ import { data } from "./SourceWorkspace";
 import { useEffect, useRef, useState } from "react";
 import { TARGET_TYPE } from "./Mapping";
 import { useXarrow } from "react-xarrows";
+import ActionsWorkspace from "./actionsWorkspace/ActionsWorkspace";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -21,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
     with: "100%",
     padding: "0.25rem",
     backgroundColor: theme.palette.mapping.headers,
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   targetWorkspaceWrapper: {
     width: "100%",
@@ -61,6 +65,7 @@ const TargetWorkspace = () => {
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Target workspace </Typography>
+        <ActionsWorkspace />
       </Box>
       <TableSearch
         handleSearch={handleSearch}
