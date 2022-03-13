@@ -59,7 +59,7 @@ const FileUploadWorkspace = ({ type = SOURCE_TYPE }) => {
       />
       <Snackbar
         open={Boolean(isFilePickedError)}
-        autoHideDuration={70000}
+        autoHideDuration={7000}
         onClose={handleCloseAlert}
         anchorOrigin={{
           vertical: "bottom",
