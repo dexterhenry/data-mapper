@@ -1,8 +1,10 @@
 import { Alert, IconButton, Snackbar } from "@mui/material";
 import ListAddIcon from "@mui/icons-material/PlaylistAdd";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { SOURCE_TYPE } from "../Mapping";
 import { makeStyles } from "@mui/styles";
+import csvToArray from "../../util/csvToArray";
+import { FilesContext } from "../../context/FilesContext";
 
 const useStyles = makeStyles((theme) => ({
   file: {
@@ -16,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FileUploadWorkspace = ({ type = SOURCE_TYPE }) => {
-  const [selectedFile, setSelectedFile] = useState();
   const [isFilePickedError, setIsFilePickedError] = useState(false);
+  const { setDataFromCsvArray } = useContext(FilesContext);
 
   const inputFileRef = useRef();
   const classes = useStyles();
@@ -33,16 +35,23 @@ const FileUploadWorkspace = ({ type = SOURCE_TYPE }) => {
 
   const handleChange = (event) => {
     const eventFile = event.target.files[0];
-    if (eventFile.type === "text/csv") {
-      //reed an show the tree
-      setSelectedFile(eventFile);
+    if (eventFile?.type === "text/csv") {
+      const input = eventFile;
+      const reader = new FileReader();
+      //reed the file data
+      reader.onload = function (e) {
+        const text = e.target.result;
+        const data = csvToArray(text);
+        //put value of workspace type
+        setDataFromCsvArray(data, type);
+      };
+
+      reader.readAsText(input);
     } else {
       //show alert for wrong file type
       setIsFilePickedError(eventFile);
     }
   };
-
-  const handleSubmission = () => {};
 
   return (
     <>
