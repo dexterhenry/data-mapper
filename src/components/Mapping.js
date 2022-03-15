@@ -10,6 +10,7 @@ import { Xwrapper } from "react-xarrows";
 import { Cursor } from "./cursor/Cursor";
 import { useContext } from "react";
 import { RelationsContext } from "../context/RelationsContext";
+import { FilesContext } from "../context/FilesContext";
 
 const bgColor = grey[100];
 export const SOURCE_TYPE = "source";
@@ -29,6 +30,7 @@ const Mapping = () => {
   const classes = useStyles();
   const { onSourceMouseUp, relationFault, setRelationFault } =
     useContext(RelationsContext);
+  const { wrongFileData, closeAlertWrongFileData } = useContext(FilesContext);
 
   const handleMouseUp = () => onSourceMouseUp();
   const handleCloseAlert = () => setRelationFault(false);
@@ -73,6 +75,20 @@ const Mapping = () => {
       >
         <Alert onClose={handleCloseAlert} severity="error">
           {relationFault}
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={wrongFileData}
+        autoHideDuration={10000}
+        onClose={closeAlertWrongFileData}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <Alert onClose={closeAlertWrongFileData} severity="error">
+          The file structure is not correct, please select a file with a valid
+          structure
         </Alert>
       </Snackbar>
     </Xwrapper>
