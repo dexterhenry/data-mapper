@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useXarrow } from "react-xarrows";
+import { FilesContext } from "../context/FilesContext";
 import ActionsWorkspace from "./actionsWorkspace/ActionsWorkspace";
 import NestedList from "./ListView/NestedList";
 import { SOURCE_TYPE } from "./Mapping";
@@ -23,9 +24,9 @@ const useStyles = makeStyles((theme) => ({
     with: "100%",
     padding: "0.25rem",
     backgroundColor: theme.palette.mapping.headers,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   sourceWorkspaceWrapper: {
     width: "100%",
@@ -196,6 +197,8 @@ export const data = getSourceData();
 const SourceWorkspace = () => {
   const [dataSchema, setDataSchema] = useState(data);
   const [searchValue, setSearchValue] = useState("");
+  const { sourceData } = useContext(FilesContext);
+
   const sourceWrapperRef = useRef();
   const classes = useStyles();
 
@@ -234,7 +237,7 @@ const SourceWorkspace = () => {
         onScroll={updateXarrow}
         data-id={"source-wrapper-box"}
       >
-        <NestedList data={dataSchema} type={SOURCE_TYPE} />
+        {sourceData && <NestedList data={sourceData} type={SOURCE_TYPE} />}
       </Box>
     </Box>
   );
