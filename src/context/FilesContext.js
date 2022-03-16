@@ -40,7 +40,13 @@ const FilesContextProvider = ({ children }) => {
     setWrongFileData(true);
     return [];
   };
+
   const closeAlertWrongFileData = () => setWrongFileData(false);
+
+  const clearWorkspace = (type) => {
+    if (type === SOURCE_TYPE) setSourceData(null);
+    if (type === TARGET_TYPE) setTargetData(null);
+  }
 
   const data = {
     sourceData,
@@ -48,6 +54,7 @@ const FilesContextProvider = ({ children }) => {
     wrongFileData,
     setDataFromCsvArray,
     closeAlertWrongFileData,
+    clearWorkspace
   };
 
   return <FilesContext.Provider value={data}>{children}</FilesContext.Provider>;

@@ -1,9 +1,10 @@
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import RemoveIcon from "@mui/icons-material/PlaylistRemove";
 import CopyIcon from "@mui/icons-material/FileCopyOutlined";
 import FileUploadWorkspace from "./FileUploadWorkspace";
+import RemoveWorkspace from "./RemoveWorkspace";
+import { SOURCE_TYPE } from "../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionsWorkspace = () => {
+const ActionsWorkspace = ({type = SOURCE_TYPE }) => {
   const classes = useStyles();
 
   return (
@@ -21,10 +22,8 @@ const ActionsWorkspace = () => {
       <IconButton aria-label="copy">
         <CopyIcon />
       </IconButton>
-      <FileUploadWorkspace />
-      <IconButton aria-label="delete">
-        <RemoveIcon />
-      </IconButton>
+      <FileUploadWorkspace type={type} />
+      <RemoveWorkspace type={type} />
     </Box>
   );
 };
