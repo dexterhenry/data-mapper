@@ -5,12 +5,22 @@ export const FilesContext = createContext();
 
 const FilesContextProvider = ({ children }) => {
   const [sourceData, setSourceData] = useState(null);
+  const [searchSourceData, setSearchSourceData] = useState(null);
+  const [searchTargetData, setSearchTargetData] = useState(null);
   const [targetData, setTargetData] = useState(null);
   const [wrongFileData, setWrongFileData] = useState(false);
 
   const setDataFromCsvArray = (csvArr, type) => {
-    if (type === SOURCE_TYPE) setSourceData(transformDataToTree(csvArr, type));
-    if (type === TARGET_TYPE) setTargetData(transformDataToTree(csvArr, type));
+    const data = transformDataToTree(csvArr, type);
+
+    if (type === SOURCE_TYPE) {
+      setSourceData(data);
+      setSearchSourceData(data);
+    }
+    if (type === TARGET_TYPE) {
+      setTargetData(data);
+      setSearchTargetData(data);
+    }
   };
 
   const transformDataToTree = (data, type) => {
@@ -46,15 +56,29 @@ const FilesContextProvider = ({ children }) => {
   const clearWorkspace = (type) => {
     if (type === SOURCE_TYPE) setSourceData(null);
     if (type === TARGET_TYPE) setTargetData(null);
-  }
+  };
+
+  const updateData = (type, data) => {
+    if (type === SOURCE_TYPE) setSourceData(data);
+    if (type === TARGET_TYPE) setTargetData(data);
+  };
+
+  const updateSearchData = (type) => {
+    if (type === SOURCE_TYPE) setSourceData(searchSourceData);
+    if (type === TARGET_TYPE) setTargetData(searchTargetData);
+  };
 
   const data = {
     sourceData,
     targetData,
     wrongFileData,
+    searchSourceData,
+    searchTargetData,
     setDataFromCsvArray,
     closeAlertWrongFileData,
-    clearWorkspace
+    clearWorkspace,
+    updateData,
+    updateSearchData,
   };
 
   return <FilesContext.Provider value={data}>{children}</FilesContext.Provider>;
