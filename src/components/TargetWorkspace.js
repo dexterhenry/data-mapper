@@ -3,10 +3,11 @@ import { makeStyles } from "@mui/styles";
 import NestedList from "./ListView/NestedList";
 import TableSearch from "./TableSearch";
 import { data } from "./SourceWorkspace";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { TARGET_TYPE } from "./Mapping";
 import { useXarrow } from "react-xarrows";
 import ActionsWorkspace from "./actionsWorkspace/ActionsWorkspace";
+import { FilesContext } from "../context/FilesContext";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -22,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
     with: "100%",
     padding: "0.25rem",
     backgroundColor: theme.palette.mapping.headers,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   targetWorkspaceWrapper: {
     width: "100%",
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const TargetWorkspace = () => {
   const [dataSchema, setDataSchema] = useState(data);
   const [searchValue, setSearchValue] = useState("");
+  const { targetData } = useContext(FilesContext);
   const boxRef = useRef();
 
   const classes = useStyles();
@@ -65,7 +67,7 @@ const TargetWorkspace = () => {
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Target workspace </Typography>
-        <ActionsWorkspace />
+        <ActionsWorkspace type={TARGET_TYPE} />
       </Box>
       <TableSearch
         handleSearch={handleSearch}
@@ -76,9 +78,9 @@ const TargetWorkspace = () => {
         ref={boxRef}
         className={classes.targetWorkspaceWrapper}
         onScroll={updateXarrow}
-        data-id={'target-wrapper-box'}
+        data-id={"target-wrapper-box"}
       >
-        <NestedList data={dataSchema} type={TARGET_TYPE} />
+        {targetData && <NestedList data={targetData} type={TARGET_TYPE} />}
       </Box>
     </Box>
   );
