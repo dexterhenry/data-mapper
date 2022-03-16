@@ -34,7 +34,9 @@ const FileUploadWorkspace = ({ type = SOURCE_TYPE }) => {
   };
 
   const handleChange = (event) => {
-    const eventFile = event.target.files[0];
+    const { target: inputEl } = event,
+      eventFile = inputEl.files[0];
+
     if (eventFile?.type === "text/csv") {
       const input = eventFile;
       const reader = new FileReader();
@@ -47,9 +49,13 @@ const FileUploadWorkspace = ({ type = SOURCE_TYPE }) => {
       };
 
       reader.readAsText(input);
+      //clean input
+      inputEl.value = "";
     } else {
       //show alert for wrong file type
       setIsFilePickedError(eventFile);
+      //clean input
+      inputEl.value = "";
     }
   };
 
