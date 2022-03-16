@@ -1,8 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useXarrow } from "react-xarrows";
-import { FilesContext } from "../context/FilesContext";
+import useSearchWorkspace from "../hooks/useSearchWorkspace";
 import ActionsWorkspace from "./actionsWorkspace/ActionsWorkspace";
 import NestedList from "./ListView/NestedList";
 import { SOURCE_TYPE } from "./Mapping";
@@ -195,29 +195,12 @@ const getSourceData = () => [
 export const data = getSourceData();
 
 const SourceWorkspace = () => {
-  const [searchValue, setSearchValue] = useState("");
-  const { sourceData, updateData, updateSearchData } = useContext(FilesContext);
-
+  const updateXarrow = useXarrow();
+  const { handleSearch, searchValue, handleInputSearch, sourceData } =
+    useSearchWorkspace(SOURCE_TYPE);
   const sourceWrapperRef = useRef();
   const classes = useStyles();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const data = sourceData.filter((item) => {
-           return item.label.toLowerCase().includes(searchValue.toLowerCase());
-       })
-    updateData(SOURCE_TYPE, data)
-  };
-
-  const handleInputSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  useEffect(() => {
-    searchValue === "" && updateSearchData(SOURCE_TYPE);
-  }, [searchValue]);
-
-  const updateXarrow = useXarrow();
   return (
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>

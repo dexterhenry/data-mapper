@@ -2,12 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import NestedList from "./ListView/NestedList";
 import TableSearch from "./TableSearch";
-import { data } from "./SourceWorkspace";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { TARGET_TYPE } from "./Mapping";
 import { useXarrow } from "react-xarrows";
 import ActionsWorkspace from "./actionsWorkspace/ActionsWorkspace";
-import { FilesContext } from "../context/FilesContext";
+import useSearchWorkspace from "../hooks/useSearchWorkspace";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -37,31 +36,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const TargetWorkspace = () => {
-  const [dataSchema, setDataSchema] = useState(data);
-  const [searchValue, setSearchValue] = useState("");
-  const { targetData } = useContext(FilesContext);
-  const boxRef = useRef();
-
-  const classes = useStyles();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setDataSchema(
-      dataSchema.filter((item) => {
-        return item.label.toLowerCase().includes(searchValue.toLowerCase());
-      })
-    );
-  };
-
-  const handleInputSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  useEffect(() => {
-    searchValue === "" && setDataSchema(data);
-  }, [searchValue]);
-
+  const { targetData, searchValue, handleSearch, handleInputSearch } =
+    useSearchWorkspace(TARGET_TYPE);
   const updateXarrow = useXarrow();
+
+  const boxRef = useRef();
+  const classes = useStyles();
 
   return (
     <Box className={classes.rootWrapper}>
