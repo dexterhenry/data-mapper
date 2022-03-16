@@ -54,8 +54,14 @@ const FilesContextProvider = ({ children }) => {
   const closeAlertWrongFileData = () => setWrongFileData(false);
 
   const clearWorkspace = (type) => {
-    if (type === SOURCE_TYPE) setSourceData(null);
-    if (type === TARGET_TYPE) setTargetData(null);
+    if (type === SOURCE_TYPE) {
+      setSourceData(null);
+      setSearchSourceData(null);
+    }
+    if (type === TARGET_TYPE) {
+      setTargetData(null);
+      setSearchTargetData(null);
+    }
   };
 
   const updateData = (type, data) => {
