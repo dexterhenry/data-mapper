@@ -195,20 +195,18 @@ const getSourceData = () => [
 export const data = getSourceData();
 
 const SourceWorkspace = () => {
-  const [dataSchema, setDataSchema] = useState(data);
   const [searchValue, setSearchValue] = useState("");
-  const { sourceData } = useContext(FilesContext);
+  const { sourceData, updateData, updateSearchData } = useContext(FilesContext);
 
   const sourceWrapperRef = useRef();
   const classes = useStyles();
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setDataSchema(
-      dataSchema.filter((item) => {
-        return item.label.toLowerCase().includes(searchValue.toLowerCase());
-      })
-    );
+    const data = sourceData.filter((item) => {
+           return item.label.toLowerCase().includes(searchValue.toLowerCase());
+       })
+    updateData(SOURCE_TYPE, data)
   };
 
   const handleInputSearch = (e) => {
@@ -216,7 +214,7 @@ const SourceWorkspace = () => {
   };
 
   useEffect(() => {
-    searchValue === "" && setDataSchema(data);
+    searchValue === "" && updateSearchData(SOURCE_TYPE);
   }, [searchValue]);
 
   const updateXarrow = useXarrow();
