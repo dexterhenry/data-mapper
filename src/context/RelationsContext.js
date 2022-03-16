@@ -110,6 +110,8 @@ const RelationsContextProvider = ({ children }) => {
     return `${ocurrence.source}:${ocurrence.target}`;
   };
 
+  const cleanRelations = () => setRelations([])
+
   const data = {
     isDrawing,
     relationFault,
@@ -119,6 +121,7 @@ const RelationsContextProvider = ({ children }) => {
     onSourceMouseUp,
     onTargetMouseUp,
     getOccurrence,
+    cleanRelations
   };
   return (
     <RelationsContext.Provider value={data}>
