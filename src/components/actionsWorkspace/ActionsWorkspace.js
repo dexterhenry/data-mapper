@@ -4,7 +4,6 @@ import IconButton from "@mui/material/IconButton";
 import CopyIcon from "@mui/icons-material/FileCopyOutlined";
 import FileUploadWorkspace from "./FileUploadWorkspace";
 import RemoveWorkspace from "./RemoveWorkspace";
-import { SOURCE_TYPE } from "../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionsWorkspace = ({type = SOURCE_TYPE }) => {
+const ActionsWorkspace = ({type}) => {
   const classes = useStyles();
 
   return (
