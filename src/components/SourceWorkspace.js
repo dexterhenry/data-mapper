@@ -224,7 +224,7 @@ const SourceWorkspace = () => {
     <Box className={classes.rootWrapper}>
       <Box className={classes.headerSection}>
         <Typography variant="h7"> Source workspace </Typography>
-        <ActionsWorkspace />
+        <ActionsWorkspace type={SOURCE_TYPE} />
       </Box>
       <TableSearch
         handleSearch={handleSearch}
