@@ -1,11 +1,10 @@
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import CopyIcon from "@mui/icons-material/FileCopyOutlined";
 import FileUploadWorkspace from "./FileUploadWorkspace";
 import RemoveWorkspace from "./RemoveWorkspace";
+import ManageWorkspace from "./ManageWorkspace";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     height: "2rem",
     display: "flex",
@@ -13,14 +12,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ActionsWorkspace = ({type}) => {
+const ActionsWorkspace = ({ type }) => {
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <IconButton aria-label="copy">
-        <CopyIcon />
-      </IconButton>
+      <ManageWorkspace type={type} />
       <FileUploadWorkspace type={type} />
       <RemoveWorkspace type={type} />
     </Box>
