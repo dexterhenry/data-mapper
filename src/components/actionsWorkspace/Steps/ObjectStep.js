@@ -12,7 +12,7 @@ const ObjectStep = () => {
 
   return (
     <Grid container spacing={1} className={classes.rootWrapper}>
-      <Grid item xs={6}>
+      <Grid item xs={12}>
         <FormControl fullWidth required variant="standard">
           <InputLabel id="object-step-data-type-label">Data Types</InputLabel>
           <Select
