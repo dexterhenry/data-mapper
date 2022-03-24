@@ -4,7 +4,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import AuthorisationStep from "./Steps/AuthorisationStep";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import WebhookStep from "./Steps/WebhookStep";
 import DataTypeStep from "./Steps/DataTypeStep";
 import ObjectStep from "./Steps/ObjectStep";
@@ -12,6 +12,7 @@ import TranslatorStep from "./Steps/TranslatorStep";
 import EventStep from "./Steps/EventStep";
 import ImportDetailStep from "./Steps/ImportDetailStep";
 import { makeStyles } from "@mui/styles";
+import { StepsContext } from "../../context/StepsContext";
 
 const steps = [
   "Authorisation",
@@ -56,26 +57,32 @@ const useStyles = makeStyles((theme) => ({
   btnBack: { marginRight: 1 },
 }));
 
-export default function WorkspaceStepper() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+export default function WorkspaceStepper({type}) {
+  const { isValidStep, activeStep, setActiveStep, validationStep } = useContext(StepsContext);
   // const currentValidationSchema = validationSchema[activeStep];
   const isLastStep = activeStep === steps.length - 1;
-
+  
   const submitForm = (values = null) => {
     alert(JSON.stringify(values, null, 2));
-    setActiveStep(activeStep + 1);
   };
 
-  const handleSubmit = (values = null) => {
-    if (isLastStep) {
-      submitForm(values);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validationStep(activeStep);
+    if (isValidStep) {
+      if (isLastStep) {
+        submitForm();
+      } else {
+        setActiveStep(activeStep + 1);
+      }
     } else {
-      setActiveStep(activeStep + 1);
+      return;
     }
   };
 
   const handleBack = () => setActiveStep(activeStep - 1);
+
+  const classes = useStyles();
 
   return (
     <>
@@ -90,8 +97,8 @@ export default function WorkspaceStepper() {
         {activeStep === steps.length ? (
           <p> last step</p>
         ) : (
-          <div id={"formId"}>
-            {_renderStepContent(activeStep)}
+          <form onSubmit={handleSubmit} noValidate="novalidate">
+            {_renderStepContent(activeStep, type)}
             <Box className={classes.buttonsWrapper}>
               {activeStep !== 0 && (
                 <Button className={classes.btnBack} onClick={handleBack}>
@@ -102,7 +109,7 @@ export default function WorkspaceStepper() {
                 {isLastStep ? "Finish" : "Next"}
               </Button>
             </Box>
-          </div>
+          </form>
         )}
       </>
     </>

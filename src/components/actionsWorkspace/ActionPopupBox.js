@@ -5,10 +5,11 @@ import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { makeStyles } from "@mui/styles";
 import WorkspaceStepper from "./WorkspaceStepper";
+import StepsContextProvider from "../../context/StepsContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiDialog-paper": { width: "90%", maxHeight: '90vh', height:'90vh' },
+    "& .MuiDialog-paper": { width: "90%", maxHeight: "90vh", height: "90vh" },
     "& .MuiDialog-container": { alignItems: "flex-start" },
   },
 }));
@@ -26,17 +27,19 @@ export default function ActionPopupBox(props) {
   };
 
   return (
-    <Dialog className={classes.root} maxWidth="lg" open={open} {...other}>
-      <DialogTitle> Manage Mieshlet {`(${type})`}</DialogTitle>
-      <DialogContent dividers>
-        <WorkspaceStepper type={type} />
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button onClick={handleOk}>Ok</Button>
-      </DialogActions>
-    </Dialog>
+    <StepsContextProvider>
+      <Dialog className={classes.root} maxWidth="lg" open={open} {...other}>
+        <DialogTitle> Manage Mieshlet {`(${type})`}</DialogTitle>
+        <DialogContent dividers>
+          <WorkspaceStepper type={type} />
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button onClick={handleOk}>Ok</Button>
+        </DialogActions>
+      </Dialog>
+    </StepsContextProvider>
   );
 }
