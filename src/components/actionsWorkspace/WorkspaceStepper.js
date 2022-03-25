@@ -82,7 +82,10 @@ export default function WorkspaceStepper({ type }) {
   const classes = useStyles();
 
   useEffect(() => {
-    isValidStep && setActiveStep(activeStep + 1);
+    if (isValidStep) {
+      setActiveStep(activeStep + 1);
+      setValidStep(false);
+    }
   }, [isValidStep]);
 
   useEffect(() => {
