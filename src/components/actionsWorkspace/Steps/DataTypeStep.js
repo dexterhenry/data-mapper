@@ -7,6 +7,9 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
+import { useContext } from "react";
+import { StepsContext } from "../../../context/StepsContext";
+import { SOURCE_TYPE, TARGET_TYPE } from "../../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -15,9 +18,37 @@ const useStyles = makeStyles((theme) => ({
   titles: {
     fontWeight: "bold !important",
   },
+  errorsText: {
+    color: theme.palette.error.main,
+    fontSize: "x-small !important",
+  },
 }));
 
-const DataTypeStep = () => {
+const DataTypeStep = ({ type }) => {
+  let form,
+    handleChange,
+    errors = null;
+
+  const {
+    dataTypeStepFormSource,
+    dataTypeStepFormTarget,
+    dataTypeStepErrorSource,
+    dataTypeStepErrorTarget,
+    handleChangeDataTypeStepSource,
+    handleChangeDataTypeStepTarget,
+  } = useContext(StepsContext);
+  if (type === SOURCE_TYPE) {
+    form = dataTypeStepFormSource;
+    handleChange = handleChangeDataTypeStepSource;
+    errors = dataTypeStepErrorSource;
+  }
+
+  if (type === TARGET_TYPE) {
+    form = dataTypeStepFormTarget;
+    handleChange = handleChangeDataTypeStepTarget;
+    errors = dataTypeStepErrorTarget;
+  }
+
   const classes = useStyles();
 
   return (
@@ -27,19 +58,27 @@ const DataTypeStep = () => {
         <Typography className={classes.titles}>JSON Types​</Typography>
         <TextField
           required
-          id="data-type-step-schema"
+          id={`${type}-data-type-json-types-schema`}
           label="Schema"
+          value={form?.dataTypeJsonSchema}
+          onChange={handleChange}
+          name="dataTypeJsonSchema"
           variant="standard"
           size="small"
           fullWidth
         />
+        {errors.dataTypeJsonSchema && (
+          <Typography variant="subtitle1" className={classes.errorsText}>
+            {errors.dataTypeJsonSchema}
+          </Typography>
+        )}
         <FormGroup>
           <FormControlLabel
             control={
               <Checkbox
-                defaultChecked
-                // checked={checked}
-                // onChange={handleChange}
+                checked={form?.dataTypeJsonDiscardAdditionalParameters}
+                onChange={handleChange}
+                name="dataTypeJsonDiscardAdditionalParameters"
                 size="small"
               />
             }
@@ -48,8 +87,11 @@ const DataTypeStep = () => {
           />
         </FormGroup>
         <TextField
-          id="data-type-step-title"
+          id={`${type}-data-type-step-title`}
           label="Title"
+          value={form?.dataTypeJsonTypeTitle}
+          name="dataTypeJsonTypeTitle"
+          onChange={handleChange}
           variant="standard"
           size="small"
           fullWidth
@@ -61,12 +103,20 @@ const DataTypeStep = () => {
         <Typography className={classes.titles}>File Types​</Typography>
         <TextField
           required
-          id="data-type-step-file-types"
+          id={`${type}-data-type-step-file-types`}
           label="Title"
+          value={form?.dataTypeFileTypeTitle}
+          name="dataTypeFileTypeTitle"
+          onChange={handleChange}
           variant="standard"
           size="small"
           fullWidth
         />
+        {errors.dataTypeFileTypeTitle && (
+          <Typography variant="subtitle1" className={classes.errorsText}>
+            {errors.dataTypeFileTypeTitle}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
