@@ -2,13 +2,25 @@ import React, { createContext, useEffect, useState } from "react";
 import { useCallback } from "react";
 import { SOURCE_TYPE, TARGET_TYPE } from "../components/Mapping";
 import { useForm } from "../hooks/useForm";
-import { validationsAuthorisationStepForm } from "../util/validationsForm";
+import {
+  validationsAuthorisationStepForm,
+  validationsWebhookStepForm,
+} from "../util/validationsForm";
 
 const initialAuthorisationStepForm = {
   authorisationProject: "",
   authorisationIntegration: "",
   authorisationUsername: "",
   authorisationPassword: "",
+};
+
+const initialWebhookStepForm = {
+  webhookPath: "",
+  webhookParameters: "",
+  webhookMethod: "",
+  webhookName: "",
+  webhookValue: "",
+  webhookDescription: "",
 };
 
 export const StepsContext = createContext();
@@ -19,6 +31,7 @@ const StepsContextProvider = ({ children }) => {
   const [isValidStep, setValidStep] = useState(false);
   const [stepError, setStepError] = useState({});
 
+  //AuthorisationStep Forms
   const {
     form: authorisationStepFormSource,
     errors: authorisationStepErrorSource,
@@ -32,6 +45,21 @@ const StepsContextProvider = ({ children }) => {
     setErrors: setAuthorisationStepErrorTarget,
     handleChange: handleChangeAuthorisationStepTarget,
   } = useForm(initialAuthorisationStepForm, validationsAuthorisationStepForm);
+
+  //WebhookStep Forms
+  const {
+    form: webHookStepFormSource,
+    errors: webHookStepErrorSource,
+    setErrors: setWebHookStepErrorSource,
+    handleChange: handleChangeWebHookStepSource,
+  } = useForm(initialWebhookStepForm, validationsWebhookStepForm);
+
+  const {
+    form: webHookStepFormTarget,
+    errors: webHookStepErrorTarget,
+    setErrors: setWebHookStepErrorTarget,
+    handleChange: handleChangeWebHookStepTarget,
+  } = useForm(initialWebhookStepForm, validationsWebhookStepForm);
 
   const validationStep = useCallback(() => {
     switch (activeStep) {
@@ -47,11 +75,24 @@ const StepsContextProvider = ({ children }) => {
           );
         }
         return;
+      case 1:
+        if (currentType === SOURCE_TYPE) {
+          setWebHookStepErrorSource(
+            validationsWebhookStepForm(webHookStepFormSource)
+          );
+        }
+        if (currentType === TARGET_TYPE) {
+          setWebHookStepErrorTarget(
+            validationsWebhookStepForm(webHookStepFormTarget)
+          );
+        }
+        return;
       default:
         return null;
     }
   });
 
+  //AuthorisationStep Effects
   useEffect(() => {
     if (Object.keys(authorisationStepErrorSource).length === 0) {
       setValidStep(true);
@@ -68,6 +109,23 @@ const StepsContextProvider = ({ children }) => {
     }
   }, [authorisationStepErrorTarget]);
 
+  //WebhookStep Effects
+  useEffect(() => {
+    if (Object.keys(webHookStepErrorSource).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [webHookStepErrorSource]);
+
+  useEffect(() => {
+    if (Object.keys(webHookStepErrorTarget).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [webHookStepErrorTarget]);
+
   const data = {
     activeStep,
     setActiveStep,
@@ -82,7 +140,13 @@ const StepsContextProvider = ({ children }) => {
     authorisationStepErrorSource,
     authorisationStepErrorTarget,
     handleChangeAuthorisationStepSource,
-    handleChangeAuthorisationStepTarget
+    handleChangeAuthorisationStepTarget,
+    webHookStepFormSource,
+    webHookStepFormTarget,
+    webHookStepErrorSource,
+    webHookStepErrorTarget,
+    handleChangeWebHookStepSource,
+    handleChangeWebHookStepTarget,
   };
 
   return <StepsContext.Provider value={data}>{children}</StepsContext.Provider>;
