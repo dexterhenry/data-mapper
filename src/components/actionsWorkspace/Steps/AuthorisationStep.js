@@ -100,7 +100,6 @@ const AuthorisationStep = ({ type }) => {
       </Grid>
       <Grid item xs={12}>
         <TextField
-          id="authorisation-step-password"
           id={`${type}-authorisation-step-password`}
           name="authorisationPassword"
           label="Password"
