@@ -4,7 +4,7 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import AuthorisationStep from "./Steps/AuthorisationStep";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import WebhookStep from "./Steps/WebhookStep";
 import DataTypeStep from "./Steps/DataTypeStep";
 import ObjectStep from "./Steps/ObjectStep";
@@ -57,32 +57,37 @@ const useStyles = makeStyles((theme) => ({
   btnBack: { marginRight: 1 },
 }));
 
-export default function WorkspaceStepper({type}) {
-  const { isValidStep, activeStep, setActiveStep, validationStep } = useContext(StepsContext);
-  // const currentValidationSchema = validationSchema[activeStep];
+export default function WorkspaceStepper({ type }) {
+  const {
+    activeStep,
+    setActiveStep,
+    validationStep,
+    isValidStep,
+    setValidStep,
+    setCurrentType,
+  } = useContext(StepsContext);
+
   const isLastStep = activeStep === steps.length - 1;
-  
-  const submitForm = (values = null) => {
-    alert(JSON.stringify(values, null, 2));
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validationStep(activeStep);
-    if (isValidStep) {
-      if (isLastStep) {
-        submitForm();
-      } else {
-        setActiveStep(activeStep + 1);
-      }
-    } else {
-      return;
-    }
+    isValidStep ? setActiveStep(activeStep + 1) : validationStep(activeStep);
   };
 
-  const handleBack = () => setActiveStep(activeStep - 1);
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
+    setValidStep(false);
+  };
 
   const classes = useStyles();
+
+  useEffect(() => {
+    isValidStep && setActiveStep(activeStep + 1);
+  }, [isValidStep]);
+
+  useEffect(() => {
+    setCurrentType(type);
+  }, [type]);
 
   return (
     <>
@@ -105,9 +110,7 @@ export default function WorkspaceStepper({type}) {
                   Back
                 </Button>
               )}
-              <Button type="submit" onClick={handleSubmit}>
-                {isLastStep ? "Finish" : "Next"}
-              </Button>
+              <Button type="submit">{isLastStep ? "Finish" : "Next"}</Button>
             </Box>
           </form>
         )}

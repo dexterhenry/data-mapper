@@ -3,6 +3,7 @@ import { makeStyles } from "@mui/styles";
 import { useContext } from "react";
 import { StepsContext } from "../../../context/StepsContext";
 import Typography from "@mui/material/Typography";
+import { SOURCE_TYPE, TARGET_TYPE } from "../../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
@@ -16,12 +17,30 @@ const useStyles = makeStyles((theme) => ({
 
 const AuthorisationStep = ({ type }) => {
   const classes = useStyles();
+  let form,
+    handleChange,
+    errors = null;
 
   const {
-    authorisationStepForm: form,
-    handleChangeAuthorisationStep: handleChange,
-    authorisationStepError: errors,
+    authorisationStepFormSource,
+    authorisationStepFormTarget,
+    handleChangeAuthorisationStepSource,
+    handleChangeAuthorisationStepTarget,
+    authorisationStepErrorSource,
+    authorisationStepErrorTarget,
   } = useContext(StepsContext);
+
+  if (type === SOURCE_TYPE) {
+    form = authorisationStepFormSource;
+    handleChange = handleChangeAuthorisationStepSource;
+    errors = authorisationStepErrorSource;
+  }
+
+  if (type === TARGET_TYPE) {
+    form = authorisationStepFormTarget;
+    handleChange = handleChangeAuthorisationStepTarget;
+    errors = authorisationStepErrorTarget;
+  }
 
   return (
     <Grid container spacing={1} className={classes.rootWrapper}>
@@ -31,7 +50,7 @@ const AuthorisationStep = ({ type }) => {
           id={`${type}-authorisation-step-project`}
           name="authorisationProject"
           label="Project"
-          value={form.authorisationProject}
+          value={form?.authorisationProject}
           onChange={handleChange}
           variant="standard"
           size="small"
@@ -55,7 +74,7 @@ const AuthorisationStep = ({ type }) => {
           size="small"
           fullWidth
         />
-         {errors.authorisationIntegration && (
+        {errors.authorisationIntegration && (
           <Typography variant="subtitle1" className={classes.errorsText}>
             {errors.authorisationIntegration}
           </Typography>
@@ -73,7 +92,7 @@ const AuthorisationStep = ({ type }) => {
           size="small"
           fullWidth
         />
-         {errors.authorisationUsername && (
+        {errors.authorisationUsername && (
           <Typography variant="subtitle1" className={classes.errorsText}>
             {errors.authorisationUsername}
           </Typography>
@@ -93,7 +112,7 @@ const AuthorisationStep = ({ type }) => {
           size="small"
           fullWidth
         />
-           {errors.authorisationPassword && (
+        {errors.authorisationPassword && (
           <Typography variant="subtitle1" className={classes.errorsText}>
             {errors.authorisationPassword}
           </Typography>

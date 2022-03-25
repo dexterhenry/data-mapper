@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { useCallback } from "react";
 import { SOURCE_TYPE, TARGET_TYPE } from "../components/Mapping";
 import { useForm } from "../hooks/useForm";
@@ -15,36 +15,58 @@ export const StepsContext = createContext();
 
 const StepsContextProvider = ({ children }) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [currentType, setCurrentType] = useState(null);
   const [isValidStep, setValidStep] = useState(false);
   const [stepError, setStepError] = useState({});
-  
-  const submitForm = (values = null) => {
-    alert(JSON.stringify(values, null, 2));
-  };
 
   const {
-    form: authorisationStepForm,
-    errors: authorisationStepError,
-    setErrors: setAuthorisationStepError,
-    handleChange: handleChangeAuthorisationStep,
+    form: authorisationStepFormSource,
+    errors: authorisationStepErrorSource,
+    setErrors: setAuthorisationStepErrorSource,
+    handleChange: handleChangeAuthorisationStepSource,
+  } = useForm(initialAuthorisationStepForm, validationsAuthorisationStepForm);
+
+  const {
+    form: authorisationStepFormTarget,
+    errors: authorisationStepErrorTarget,
+    setErrors: setAuthorisationStepErrorTarget,
+    handleChange: handleChangeAuthorisationStepTarget,
   } = useForm(initialAuthorisationStepForm, validationsAuthorisationStepForm);
 
   const validationStep = useCallback(() => {
     switch (activeStep) {
       case 0:
-        setAuthorisationStepError(
-          validationsAuthorisationStepForm(authorisationStepForm)
-        );
-        if (Object.keys(authorisationStepError).length === 0) {
-          setValidStep(true);
-        } else {
-          setValidStep(false);
+        if (currentType === SOURCE_TYPE) {
+          setAuthorisationStepErrorSource(
+            validationsAuthorisationStepForm(authorisationStepFormSource)
+          );
+        }
+        if (currentType === TARGET_TYPE) {
+          setAuthorisationStepErrorTarget(
+            validationsAuthorisationStepForm(authorisationStepFormTarget)
+          );
         }
         return;
       default:
         return null;
     }
-  })
+  });
+
+  useEffect(() => {
+    if (Object.keys(authorisationStepErrorSource).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [authorisationStepErrorSource]);
+
+  useEffect(() => {
+    if (Object.keys(authorisationStepErrorTarget).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [authorisationStepErrorTarget]);
 
   const data = {
     activeStep,
@@ -54,9 +76,13 @@ const StepsContextProvider = ({ children }) => {
     validationStep,
     stepError,
     setStepError,
-    authorisationStepForm,
-    authorisationStepError,
-    handleChangeAuthorisationStep,
+    setCurrentType,
+    authorisationStepFormSource,
+    authorisationStepFormTarget,
+    authorisationStepErrorSource,
+    authorisationStepErrorTarget,
+    handleChangeAuthorisationStepSource,
+    handleChangeAuthorisationStepTarget
   };
 
   return <StepsContext.Provider value={data}>{children}</StepsContext.Provider>;
