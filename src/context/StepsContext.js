@@ -4,6 +4,7 @@ import { SOURCE_TYPE, TARGET_TYPE } from "../components/Mapping";
 import { useForm } from "../hooks/useForm";
 import {
   validationsAuthorisationStepForm,
+  validationsDataTypeStepForm,
   validationsWebhookStepForm,
 } from "../util/validationsForm";
 
@@ -21,6 +22,13 @@ const initialWebhookStepForm = {
   webhookName: "",
   webhookValue: "",
   webhookDescription: "",
+};
+
+const initialDataTypeStepForm = {
+  dataTypeJsonSchema: "",
+  dataTypeJsonDiscardAdditionalParameters: false,
+  dataTypeJsonTypeTitle: "",
+  dataTypeFileTypeTitle: "",
 };
 
 export const StepsContext = createContext();
@@ -61,6 +69,21 @@ const StepsContextProvider = ({ children }) => {
     handleChange: handleChangeWebHookStepTarget,
   } = useForm(initialWebhookStepForm, validationsWebhookStepForm);
 
+  //DataTypeStep Forms
+  const {
+    form: dataTypeStepFormSource,
+    errors: dataTypeStepErrorSource,
+    setErrors: setDataTypeErrorSource,
+    handleChange: handleChangeDataTypeStepSource,
+  } = useForm(initialDataTypeStepForm, validationsDataTypeStepForm);
+
+  const {
+    form: dataTypeStepFormTarget,
+    errors: dataTypeStepErrorTarget,
+    setErrors: setDataTypeErrorTarget,
+    handleChange: handleChangeDataTypeStepTarget,
+  } = useForm(initialDataTypeStepForm, validationsDataTypeStepForm);
+
   const validationStep = useCallback(() => {
     switch (activeStep) {
       case 0:
@@ -84,6 +107,18 @@ const StepsContextProvider = ({ children }) => {
         if (currentType === TARGET_TYPE) {
           setWebHookStepErrorTarget(
             validationsWebhookStepForm(webHookStepFormTarget)
+          );
+        }
+        return;
+      case 2:
+        if (currentType === SOURCE_TYPE) {
+          setDataTypeErrorSource(
+            validationsDataTypeStepForm(dataTypeStepFormSource)
+          );
+        }
+        if (currentType === TARGET_TYPE) {
+          setDataTypeErrorTarget(
+            validationsDataTypeStepForm(dataTypeStepFormTarget)
           );
         }
         return;
@@ -126,6 +161,23 @@ const StepsContextProvider = ({ children }) => {
     }
   }, [webHookStepErrorTarget]);
 
+  //DataTypeStep Effects
+  useEffect(() => {
+    if (Object.keys(dataTypeStepErrorSource).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [dataTypeStepErrorSource]);
+
+  useEffect(() => {
+    if (Object.keys(dataTypeStepErrorTarget).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [dataTypeStepErrorTarget]);
+
   const data = {
     activeStep,
     setActiveStep,
@@ -147,6 +199,12 @@ const StepsContextProvider = ({ children }) => {
     webHookStepErrorTarget,
     handleChangeWebHookStepSource,
     handleChangeWebHookStepTarget,
+    dataTypeStepFormSource,
+    dataTypeStepFormTarget,
+    dataTypeStepErrorSource,
+    dataTypeStepErrorTarget,
+    handleChangeDataTypeStepSource,
+    handleChangeDataTypeStepTarget,
   };
 
   return <StepsContext.Provider value={data}>{children}</StepsContext.Provider>;
