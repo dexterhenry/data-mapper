@@ -26,3 +26,23 @@ export const validationsAuthorisationStepForm = (form) => {
 
   return errors;
 };
+
+export const validationsWebhookStepForm = (form) => {
+  let errors = {};
+  //Regular Expressions
+  let regxRequired = /^/;
+
+  if (!form.webhookPath.trim()) {
+    errors.webhookPath = "The Webhook Path field is required";
+  }
+
+  if (!form.webhookMethod.trim()) {
+    errors.webhookMethod = "The Method field is required";
+  }
+
+  if (!form.webhookName.trim()) {
+    errors.webhookName = "The Name is required";
+  }
+
+  return errors;
+};
