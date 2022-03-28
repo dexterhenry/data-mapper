@@ -77,3 +77,17 @@ export const validationsTranslatorStepForm = (form) => {
 
   return errors;
 };
+
+export const validationsEventStepForm = (form) => {
+  let errors = {};
+
+  if (!form.eventSchedulingType.trim()) {
+    errors.eventSchedulingType = "The Scheduling Type field is required";
+  }
+
+  if (!form.eventRepeat.trim()) {
+    errors.eventRepeat = "The Repeat field is required";
+  }
+
+  return errors;
+};
