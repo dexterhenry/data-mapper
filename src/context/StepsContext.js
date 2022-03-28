@@ -5,6 +5,7 @@ import { useForm } from "../hooks/useForm";
 import {
   validationsAuthorisationStepForm,
   validationsDataTypeStepForm,
+  validationsObjectStepForm,
   validationsWebhookStepForm,
 } from "../util/validationsForm";
 
@@ -29,6 +30,10 @@ const initialDataTypeStepForm = {
   dataTypeJsonDiscardAdditionalParameters: false,
   dataTypeJsonTypeTitle: "",
   dataTypeFileTypeTitle: "",
+};
+
+const initialObjectStepForm = {
+  objectDataType: "",
 };
 
 export const StepsContext = createContext();
@@ -84,8 +89,24 @@ const StepsContextProvider = ({ children }) => {
     handleChange: handleChangeDataTypeStepTarget,
   } = useForm(initialDataTypeStepForm, validationsDataTypeStepForm);
 
+  //ObjectStep Forms
+  const {
+    form: objectStepFormSource,
+    errors: objectStepErrorSource,
+    setErrors: setObjectErrorSource,
+    handleChange: handleChangeObjectStepSource,
+  } = useForm(initialObjectStepForm, validationsObjectStepForm);
+
+  const {
+    form: objectStepFormTarget,
+    errors: objectStepErrorTarget,
+    setErrors: setObjectErrorTarget,
+    handleChange: handleChangeObjectStepTarget,
+  } = useForm(initialObjectStepForm, validationsObjectStepForm);
+
   const validationStep = useCallback(() => {
     switch (activeStep) {
+      //AuthorisationStep
       case 0:
         if (currentType === SOURCE_TYPE) {
           setAuthorisationStepErrorSource(
@@ -98,6 +119,7 @@ const StepsContextProvider = ({ children }) => {
           );
         }
         return;
+      //WebhookStep
       case 1:
         if (currentType === SOURCE_TYPE) {
           setWebHookStepErrorSource(
@@ -110,6 +132,7 @@ const StepsContextProvider = ({ children }) => {
           );
         }
         return;
+      //DataTypeStep
       case 2:
         if (currentType === SOURCE_TYPE) {
           setDataTypeErrorSource(
@@ -119,6 +142,17 @@ const StepsContextProvider = ({ children }) => {
         if (currentType === TARGET_TYPE) {
           setDataTypeErrorTarget(
             validationsDataTypeStepForm(dataTypeStepFormTarget)
+          );
+        }
+        return;
+      //ObjectStep
+      case 3:
+        if (currentType === SOURCE_TYPE) {
+          setObjectErrorSource(validationsObjectStepForm(objectStepFormSource));
+        }
+        if (currentType === TARGET_TYPE) {
+          setObjectErrorTarget(
+            validationsObjectStepForm(objectStepFormTarget)
           );
         }
         return;
@@ -178,6 +212,23 @@ const StepsContextProvider = ({ children }) => {
     }
   }, [dataTypeStepErrorTarget]);
 
+  //ObjectStep Effects
+  useEffect(() => {
+    if (Object.keys(objectStepErrorSource).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [objectStepErrorSource]);
+
+  useEffect(() => {
+    if (Object.keys(objectStepErrorTarget).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [objectStepErrorTarget]);
+
   const data = {
     activeStep,
     setActiveStep,
@@ -205,6 +256,12 @@ const StepsContextProvider = ({ children }) => {
     dataTypeStepErrorTarget,
     handleChangeDataTypeStepSource,
     handleChangeDataTypeStepTarget,
+    objectStepFormSource,
+    objectStepFormTarget,
+    objectStepErrorSource,
+    objectStepErrorTarget,
+    handleChangeObjectStepSource,
+    handleChangeObjectStepTarget,
   };
 
   return <StepsContext.Provider value={data}>{children}</StepsContext.Provider>;

@@ -1,13 +1,47 @@
 import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
+import { useContext } from "react";
+import { StepsContext } from "../../../context/StepsContext";
+import { SOURCE_TYPE, TARGET_TYPE } from "../../Mapping";
 
 const useStyles = makeStyles((theme) => ({
   rootWrapper: {
     padding: "2rem 8rem",
   },
+  titles: {
+    fontWeight: "bold !important",
+  },
+  errorsText: {
+    color: theme.palette.error.main,
+    fontSize: "x-small !important",
+  },
 }));
 
-const ObjectStep = () => {
+const ObjectStep = ({ type }) => {
+  let form,
+    handleChange,
+    errors = null;
+
+  const {
+    objectStepFormSource,
+    objectStepFormTarget,
+    objectStepErrorSource,
+    objectStepErrorTarget,
+    handleChangeObjectStepSource,
+    handleChangeObjectStepTarget,
+  } = useContext(StepsContext);
+  if (type === SOURCE_TYPE) {
+    form = objectStepFormSource;
+    handleChange = handleChangeObjectStepSource;
+    errors = objectStepErrorSource;
+  }
+
+  if (type === TARGET_TYPE) {
+    form = objectStepFormTarget;
+    handleChange = handleChangeObjectStepTarget;
+    errors = objectStepErrorTarget;
+  }
   const classes = useStyles();
 
   return (
@@ -17,17 +51,23 @@ const ObjectStep = () => {
           <InputLabel id="object-step-data-type-label">Data Types</InputLabel>
           <Select
             labelId="object-step-data-type-label"
-            id="object-step-data-type"
-            // value={method}
-            // onChange={handleChange}
+            id={`${type}-object-step-data-type`}
+            value={form.objectDataType}
+            name="objectDataType"
+            onChange={handleChange}
             label="Method"
           >
-            <MenuItem value={1}>MenuItem1</MenuItem>
-            <MenuItem value={2}>MenuItem2</MenuItem>
-            <MenuItem value={3}>MenuItem3</MenuItem>
-            <MenuItem value={4}>MenuItem4</MenuItem>
+            <MenuItem value={'MenuItem1'}>MenuItem1</MenuItem>
+            <MenuItem value={'MenuItem2'}>MenuItem2</MenuItem>
+            <MenuItem value={'MenuItem3'}>MenuItem3</MenuItem>
+            <MenuItem value={'MenuItem4'}>MenuItem4</MenuItem>
           </Select>
         </FormControl>
+        {errors.objectDataType && (
+          <Typography variant="subtitle1" className={classes.errorsText}>
+            {errors.objectDataType}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
