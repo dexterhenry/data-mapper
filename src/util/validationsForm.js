@@ -67,3 +67,13 @@ export const validationsObjectStepForm = (form) => {
 
   return errors;
 };
+
+export const validationsTranslatorStepForm = (form) => {
+  let errors = {};
+
+  if (!form.translatorTargetDataType.trim()) {
+    errors.translatorTargetDataType = "The Target Data Type field is required";
+  }
+
+  return errors;
+};
