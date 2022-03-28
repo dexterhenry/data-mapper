@@ -1,12 +1,12 @@
+//Regular Expressions
+let regxProject = /^/;
+let regxName = /^/;
+let regxPassword =
+  /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,15}$/;
+let regxRequired = /^/;
+
 export const validationsAuthorisationStepForm = (form) => {
   let errors = {};
-  //Regular Expressions
-  let regxProject = /^/;
-  let regxName = /^/;
-  let regxPassword =
-    /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,15}$/;
-
-  let generic_message = "Credenciales inválidas";
 
   if (!form.authorisationProject.trim()) {
     errors.authorisationProject = "The project field is required";
@@ -29,8 +29,6 @@ export const validationsAuthorisationStepForm = (form) => {
 
 export const validationsWebhookStepForm = (form) => {
   let errors = {};
-  //Regular Expressions
-  let regxRequired = /^/;
 
   if (!form.webhookPath.trim()) {
     errors.webhookPath = "The Webhook Path field is required";
@@ -49,8 +47,6 @@ export const validationsWebhookStepForm = (form) => {
 
 export const validationsDataTypeStepForm = (form) => {
   let errors = {};
-  //Regular Expressions
-  let regxRequired = /^/;
 
   if (!form.dataTypeJsonSchema.trim()) {
     errors.dataTypeJsonSchema = "The Schema field is required";
@@ -59,5 +55,15 @@ export const validationsDataTypeStepForm = (form) => {
   if (!form.dataTypeFileTypeTitle.trim()) {
     errors.dataTypeFileTypeTitle = "The Title field is required";
   }
+  return errors;
+};
+
+export const validationsObjectStepForm = (form) => {
+  let errors = {};
+
+  if (!form.objectDataType.trim()) {
+    errors.objectDataType = "The Data Types field is required";
+  }
+
   return errors;
 };
