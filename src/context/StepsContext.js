@@ -5,6 +5,7 @@ import { useForm } from "../hooks/useForm";
 import {
   validationsAuthorisationStepForm,
   validationsDataTypeStepForm,
+  validationsEventStepForm,
   validationsObjectStepForm,
   validationsTranslatorStepForm,
   validationsWebhookStepForm,
@@ -36,10 +37,16 @@ const initialDataTypeStepForm = {
 const initialObjectStepForm = {
   objectDataType: "",
 };
+
 const initialTranslatorStepForm = {
   translatorTargetDataType: "",
   translatorDiscardEvent: false,
   translatorCode: "",
+};
+
+const initialEventStepForm = {
+  eventSchedulingType: "",
+  eventRepeat: "",
 };
 
 export const StepsContext = createContext();
@@ -125,6 +132,21 @@ const StepsContextProvider = ({ children }) => {
     handleChange: handleChangeTranslatorStepTarget,
   } = useForm(initialTranslatorStepForm, validationsTranslatorStepForm);
 
+  //EventStepForm
+  const {
+    form: eventStepFormSource,
+    errors: eventStepErrorSource,
+    setErrors: setEventErrorSource,
+    handleChange: handleChangeEventStepSource,
+  } = useForm(initialEventStepForm, validationsEventStepForm);
+
+  const {
+    form: eventStepFormTarget,
+    errors: eventStepErrorTarget,
+    setErrors: setEventErrorTarget,
+    handleChange: handleChangeEventStepTarget,
+  } = useForm(initialEventStepForm, validationsEventStepForm);
+
   const validationStep = useCallback(() => {
     switch (activeStep) {
       //AuthorisationStep
@@ -186,6 +208,15 @@ const StepsContextProvider = ({ children }) => {
           setTranslatorErrorTarget(
             validationsTranslatorStepForm(translatorStepFormTarget)
           );
+        }
+        return;
+      //EventStep
+      case 5:
+        if (currentType === SOURCE_TYPE) {
+          setEventErrorSource(validationsEventStepForm(eventStepFormSource));
+        }
+        if (currentType === TARGET_TYPE) {
+          setEventErrorTarget(validationsEventStepForm(eventStepFormTarget));
         }
         return;
       default:
@@ -278,6 +309,23 @@ const StepsContextProvider = ({ children }) => {
     }
   }, [translatorStepErrorTarget]);
 
+  //EventStep Effects
+  useEffect(() => {
+    if (Object.keys(eventStepErrorSource).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [eventStepErrorSource]);
+
+  useEffect(() => {
+    if (Object.keys(eventStepErrorTarget).length === 0) {
+      setValidStep(true);
+    } else {
+      setValidStep(false);
+    }
+  }, [eventStepErrorTarget]);
+
   const data = {
     activeStep,
     setActiveStep,
@@ -317,6 +365,12 @@ const StepsContextProvider = ({ children }) => {
     translatorStepErrorTarget,
     handleChangeTranslatorStepSource,
     handleChangeTranslatorStepTarget,
+    eventStepFormSource,
+    eventStepFormTarget,
+    eventStepErrorSource,
+    eventStepErrorTarget,
+    handleChangeEventStepSource,
+    handleChangeEventStepTarget,
   };
 
   return <StepsContext.Provider value={data}>{children}</StepsContext.Provider>;
