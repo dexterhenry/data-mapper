@@ -31,6 +31,7 @@ const ObjectStep = ({ type }) => {
     handleChangeObjectStepSource,
     handleChangeObjectStepTarget,
   } = useContext(StepsContext);
+
   if (type === SOURCE_TYPE) {
     form = objectStepFormSource;
     handleChange = handleChangeObjectStepSource;
@@ -42,6 +43,7 @@ const ObjectStep = ({ type }) => {
     handleChange = handleChangeObjectStepTarget;
     errors = objectStepErrorTarget;
   }
+  
   const classes = useStyles();
 
   return (
