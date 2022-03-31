@@ -63,6 +63,7 @@ const StepsContextProvider = ({ children }) => {
     errors: authorisationStepErrorSource,
     setErrors: setAuthorisationStepErrorSource,
     handleChange: handleChangeAuthorisationStepSource,
+    resetForm: resetFormAuthorisationStepSource,
   } = useForm(initialAuthorisationStepForm, validationsAuthorisationStepForm);
 
   const {
@@ -224,6 +225,18 @@ const StepsContextProvider = ({ children }) => {
     }
   });
 
+  //Reset workspace steps
+  const resetFormStepper = (type) => {
+    if (type === SOURCE_TYPE) {
+      resetFormAuthorisationStepSource();
+    }
+
+    if (type === TARGET_TYPE) {
+    }
+
+    setActiveStep(0);
+  };
+
   //AuthorisationStep Effects
   useEffect(() => {
     if (Object.keys(authorisationStepErrorSource).length === 0) {
@@ -335,6 +348,7 @@ const StepsContextProvider = ({ children }) => {
     stepError,
     setStepError,
     setCurrentType,
+    resetFormStepper,
     authorisationStepFormSource,
     authorisationStepFormTarget,
     authorisationStepErrorSource,
