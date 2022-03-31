@@ -3,6 +3,8 @@ import { Box } from "@mui/material";
 import FileUploadWorkspace from "./FileUploadWorkspace";
 import RemoveWorkspace from "./RemoveWorkspace";
 import ManageWorkspace from "./ManageWorkspace";
+import { useContext } from "react";
+import { RelationsContext } from "../../context/RelationsContext";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -13,11 +15,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ActionsWorkspace = ({ type }) => {
+  const { relations } = useContext(RelationsContext);
+  const hasRelations = relations.length > 0;
   const classes = useStyles();
 
   return (
     <Box className={classes.root}>
-      <ManageWorkspace type={type} />
+      {hasRelations && <ManageWorkspace type={type} />}
       <FileUploadWorkspace type={type} />
       <RemoveWorkspace type={type} />
     </Box>
