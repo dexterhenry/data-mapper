@@ -71,6 +71,7 @@ const StepsContextProvider = ({ children }) => {
     errors: authorisationStepErrorTarget,
     setErrors: setAuthorisationStepErrorTarget,
     handleChange: handleChangeAuthorisationStepTarget,
+    resetForm: resetFormAuthorisationStepTarget,
   } = useForm(initialAuthorisationStepForm, validationsAuthorisationStepForm);
 
   //WebhookStep Forms
@@ -232,6 +233,7 @@ const StepsContextProvider = ({ children }) => {
     }
 
     if (type === TARGET_TYPE) {
+      resetFormAuthorisationStepTarget();
     }
 
     setActiveStep(0);
