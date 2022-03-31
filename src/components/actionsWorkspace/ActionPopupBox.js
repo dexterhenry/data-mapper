@@ -22,10 +22,6 @@ export default function ActionPopupBox(props) {
     onClose();
   };
 
-  const handleOk = () => {
-    onClose();
-  };
-
   return (
     <StepsContextProvider>
       <Dialog className={classes.root} maxWidth="lg" open={open} {...other}>
@@ -37,7 +33,6 @@ export default function ActionPopupBox(props) {
           <Button autoFocus onClick={handleCancel}>
             Cancel
           </Button>
-          <Button onClick={handleOk}>Ok</Button>
         </DialogActions>
       </Dialog>
     </StepsContextProvider>
