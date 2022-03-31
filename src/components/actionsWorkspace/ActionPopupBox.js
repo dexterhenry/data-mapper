@@ -5,7 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import Dialog from "@mui/material/Dialog";
 import { makeStyles } from "@mui/styles";
 import WorkspaceStepper from "./WorkspaceStepper";
-import StepsContextProvider from "../../context/StepsContext";
+import { useContext } from "react";
+import { StepsContext } from "../../context/StepsContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,25 +17,25 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ActionPopupBox(props) {
   const { onClose, open, type, ...other } = props;
+  const { resetFormStepper } = useContext(StepsContext);
   const classes = useStyles();
 
   const handleCancel = () => {
     onClose();
+    resetFormStepper(type);
   };
 
   return (
-    <StepsContextProvider>
-      <Dialog className={classes.root} maxWidth="lg" open={open} {...other}>
-        <DialogTitle> Manage Mieshlet {`(${type})`}</DialogTitle>
-        <DialogContent dividers>
-          <WorkspaceStepper type={type} />
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleCancel}>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </StepsContextProvider>
+    <Dialog className={classes.root} maxWidth="lg" open={open} {...other}>
+      <DialogTitle> Manage Mieshlet {`(${type})`}</DialogTitle>
+      <DialogContent dividers>
+        <WorkspaceStepper type={type} />
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleCancel}>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 }
