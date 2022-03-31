@@ -80,6 +80,7 @@ const StepsContextProvider = ({ children }) => {
     errors: webHookStepErrorSource,
     setErrors: setWebHookStepErrorSource,
     handleChange: handleChangeWebHookStepSource,
+    resetForm: resetFormWebhookStepSource,
   } = useForm(initialWebhookStepForm, validationsWebhookStepForm);
 
   const {
@@ -87,6 +88,7 @@ const StepsContextProvider = ({ children }) => {
     errors: webHookStepErrorTarget,
     setErrors: setWebHookStepErrorTarget,
     handleChange: handleChangeWebHookStepTarget,
+    resetForm: resetFormWebhookStepTarget,
   } = useForm(initialWebhookStepForm, validationsWebhookStepForm);
 
   //DataTypeStep Forms
@@ -230,10 +232,12 @@ const StepsContextProvider = ({ children }) => {
   const resetFormStepper = (type) => {
     if (type === SOURCE_TYPE) {
       resetFormAuthorisationStepSource();
+      resetFormWebhookStepSource();
     }
 
     if (type === TARGET_TYPE) {
       resetFormAuthorisationStepTarget();
+      resetFormWebhookStepTarget();
     }
 
     setActiveStep(0);
