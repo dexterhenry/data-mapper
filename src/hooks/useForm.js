@@ -20,11 +20,16 @@ export const useForm = (initialForm, validateForm) => {
     setErrors(validateForm(form));
   };
 
+  const resetForm = () =>{
+    setForm(initialForm)
+  }
+
   return {
     form,
     errors,
     handleChange,
     handleBlur,
     setErrors,
+    resetForm
   };
 };
