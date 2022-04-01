@@ -97,6 +97,7 @@ const StepsContextProvider = ({ children }) => {
     errors: dataTypeStepErrorSource,
     setErrors: setDataTypeErrorSource,
     handleChange: handleChangeDataTypeStepSource,
+    resetForm: resetFormDataTypeStepSource,
   } = useForm(initialDataTypeStepForm, validationsDataTypeStepForm);
 
   const {
@@ -104,6 +105,7 @@ const StepsContextProvider = ({ children }) => {
     errors: dataTypeStepErrorTarget,
     setErrors: setDataTypeErrorTarget,
     handleChange: handleChangeDataTypeStepTarget,
+    resetForm: resetFormDataTypeStepTarget,
   } = useForm(initialDataTypeStepForm, validationsDataTypeStepForm);
 
   //ObjectStep Forms
@@ -112,6 +114,7 @@ const StepsContextProvider = ({ children }) => {
     errors: objectStepErrorSource,
     setErrors: setObjectErrorSource,
     handleChange: handleChangeObjectStepSource,
+    resetForm: resetFormObjectStepSource,
   } = useForm(initialObjectStepForm, validationsObjectStepForm);
 
   const {
@@ -119,6 +122,7 @@ const StepsContextProvider = ({ children }) => {
     errors: objectStepErrorTarget,
     setErrors: setObjectErrorTarget,
     handleChange: handleChangeObjectStepTarget,
+    resetForm: resetFormObjectStepTarget,
   } = useForm(initialObjectStepForm, validationsObjectStepForm);
 
   //TranslatorStep Form
@@ -127,6 +131,7 @@ const StepsContextProvider = ({ children }) => {
     errors: translatorStepErrorSource,
     setErrors: setTranslatorErrorSource,
     handleChange: handleChangeTranslatorStepSource,
+    resetForm: resetFormTranslatorStepSource,
   } = useForm(initialTranslatorStepForm, validationsTranslatorStepForm);
 
   const {
@@ -134,6 +139,7 @@ const StepsContextProvider = ({ children }) => {
     errors: translatorStepErrorTarget,
     setErrors: setTranslatorErrorTarget,
     handleChange: handleChangeTranslatorStepTarget,
+    resetForm: resetFormTranslatorStepTarget,
   } = useForm(initialTranslatorStepForm, validationsTranslatorStepForm);
 
   //EventStepForm
@@ -142,6 +148,7 @@ const StepsContextProvider = ({ children }) => {
     errors: eventStepErrorSource,
     setErrors: setEventErrorSource,
     handleChange: handleChangeEventStepSource,
+    resetForm: resetFormEventStepSource,
   } = useForm(initialEventStepForm, validationsEventStepForm);
 
   const {
@@ -149,6 +156,7 @@ const StepsContextProvider = ({ children }) => {
     errors: eventStepErrorTarget,
     setErrors: setEventErrorTarget,
     handleChange: handleChangeEventStepTarget,
+    resetForm: resetFormEventStepTarget,
   } = useForm(initialEventStepForm, validationsEventStepForm);
 
   const validationStep = useCallback(() => {
@@ -233,11 +241,19 @@ const StepsContextProvider = ({ children }) => {
     if (type === SOURCE_TYPE) {
       resetFormAuthorisationStepSource();
       resetFormWebhookStepSource();
+      resetFormDataTypeStepSource();
+      resetFormObjectStepSource();
+      resetFormTranslatorStepSource();
+      resetFormEventStepSource();
     }
 
     if (type === TARGET_TYPE) {
       resetFormAuthorisationStepTarget();
       resetFormWebhookStepTarget();
+      resetFormDataTypeStepTarget();
+      resetFormObjectStepTarget();
+      resetFormTranslatorStepTarget();
+      resetFormEventStepTarget();
     }
 
     setActiveStep(0);
