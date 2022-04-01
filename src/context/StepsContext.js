@@ -28,6 +28,7 @@ const initialWebhookStepForm = {
 };
 
 const initialDataTypeStepForm = {
+  dataType:"",
   dataTypeJsonSchema: "",
   dataTypeJsonDiscardAdditionalParameters: false,
   dataTypeJsonTypeTitle: "",
