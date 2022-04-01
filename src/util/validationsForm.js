@@ -47,14 +47,18 @@ export const validationsWebhookStepForm = (form) => {
 
 export const validationsDataTypeStepForm = (form) => {
   let errors = {};
-
-  if (!form.dataTypeJsonSchema.trim()) {
-    errors.dataTypeJsonSchema = "The Schema field is required";
+  if (form.dataType === "json") {
+    if (!form.dataTypeJsonSchema.trim()) {
+      errors.dataTypeJsonSchema = "The Schema field is required";
+    }
   }
 
-  if (!form.dataTypeFileTypeTitle.trim()) {
-    errors.dataTypeFileTypeTitle = "The Title field is required";
+  if (form.dataType === "file") {
+    if (!form.dataTypeFileTypeTitle.trim()) {
+      errors.dataTypeFileTypeTitle = "The Title field is required";
+    }
   }
+
   return errors;
 };
 
