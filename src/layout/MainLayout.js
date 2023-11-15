@@ -3,7 +3,6 @@ import { makeStyles } from "@mui/styles";
 import Mapping from "../components/Mapping";
 
 import TopAppBar, { appBarHeight } from "./AppBar";
-import TemporaryDrawer from "./SideBar";
 
 const useStyles = makeStyles((theme) => ({
   containerWrapper: {
@@ -12,6 +11,8 @@ const useStyles = makeStyles((theme) => ({
   mainWrapper: {
     flexGrow: 1,
     marginTop: appBarHeight(theme),
+    marginLeft: "5vw",
+    marginRight: "5vw",
   },
 }));
 
@@ -21,11 +22,10 @@ const MainLayout = ({ children }) => {
   return (
     <Box className={classes.containerWrapper}>
       <CssBaseline />
-      <TemporaryDrawer />
       <Box component="main" className={classes.mainWrapper}>
         <TopAppBar />
         {children}
-        <Mapping/>
+        <Mapping />
       </Box>
     </Box>
   );

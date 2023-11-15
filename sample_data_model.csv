@@ -1,0 +1,25 @@
+titleTable,fieldName,fieldLabel,fieldType,Picklist,fieldLength
+PerPersonal,createdBy,Created By,string,,100
+PerPersonal,createdDateTime,Created Date Time,datetimeoffset,,
+PerPersonal,createdOn,Created On,datetime,,
+PerPersonal,customString2,Citizenship 1,string,Picklist,256
+PerPersonal,customString3,Citizenship 2,string,Picklist,256
+PerPersonal,customString5,Legal Middle Names,string,,255
+PerPersonal,customString6,Legal Suffix,string,Picklist,256
+PerPersonal,customString7,Legal Last Name,string,,128
+PerPersonal,customString8,Gender Pronoun,string,Picklist,256
+PerPersonal,customString9,Maiden Name,string,,128
+PerPersonal,endDate,End Date,datetime,,
+PerPersonal,firstName,Preferred First Name,string,,40
+PerPersonal,formalName,Formal Name,string,,80
+PerPersonal,lastModifiedBy,Last Modified By,string,,100
+PerPersonal,lastModifiedDateTime,Last Modified Date Time,datetimeoffset,,
+PerPersonal,lastModifiedOn,Last Modified On,datetime,,
+PerPersonal,lastName,Preferred Last Name,string,,128
+PerPersonal,middleName,Preferred Middle Names,string,,40
+PerPersonal,operation,operation,string,,
+PerPersonal,personIdExternal,Person ID External,string,,100
+PerPersonal,preferredName,Legal First Name,string,,128
+PerPersonal,salutation,Title,string,,128
+PerPersonal,startDate,Start Date,datetime,,
+PerPersonal,suffix,Preferred Suffix,string,,128

@@ -1,6 +1,30 @@
-# Getting Started with Create React App
+# Data Mapping
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The data mapper performs a visual mapping of the data using the drag and drop functionality of the mouse, and as a result, the link connections are obtained in the form of arrows and a table with the list of connections made.
+
+The mapper is developed in React.js and uses the context to manage global state and the main react hooks
+
+
+![Screenshot from 2023-11-14 21-48-21](https://github.com/dexterhenry/data-mapper/assets/81880890/ec108c12-bcec-4eba-b6d3-b2c94f7af901)
+
+
+![Screenshot from 2023-11-14 21-48-15](https://github.com/dexterhenry/data-mapper/assets/81880890/e5b26e3e-a865-4a79-9c1b-0071f762a4ab)
+
+In data mapper it is composed of 2 main components
+the mapping area and the area of the mapping result.
+
+![Screenshot from 2023-11-14 21-45-05](https://github.com/dexterhenry/data-mapper/assets/81880890/f377463e-272a-4055-84a7-21eb0866de37)
+
+The mapping area is composed of two components, Source workspace and the Target workspace.
+
+![Screenshot from 2023-11-14 21-45-29](https://github.com/dexterhenry/data-mapper/assets/81880890/a7197273-5ccb-41cd-9ddb-3324f1322e49)
+
+
+The mapping area is composed of two components, Source workspace and Target workspace, in both workspaces the data to be mapped must be loaded   using a csv file (it is recommended to use the example file ["sample_data_model.csv"](https://github.com/dexterhenry/data-mapper/blob/main/sample_data_model.csv).
+
+You can interact with the mapper by accessing this url [Data Mapper App](http://data-mapper.vercel.app/).
+
+
 
 ## Available Scripts
 
@@ -13,58 +37,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

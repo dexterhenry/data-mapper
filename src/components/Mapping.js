@@ -50,11 +50,11 @@ const Mapping = () => {
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={2} className={classes.mappingWrapper}>
-            <Grid item xs={5}>
+            <Grid item xs={4}>
               <SourceWorkspace />
             </Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={5}>
+            <Grid item xs={4}></Grid>
+            <Grid item xs={4}>
               <TargetWorkspace />
             </Grid>
           </Grid>
