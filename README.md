@@ -22,7 +22,7 @@ The mapping area is composed of two components, Source workspace and the Target 
 
 The mapping area is composed of two components, Source workspace and Target workspace, in both workspaces the data to be mapped must be loaded   using a csv file (it is recommended to use the example file ["sample_data_model.csv"](https://github.com/dexterhenry/data-mapper/blob/main/sample_data_model.csv).
 
-You can interact with the mapper by accessing this url [Data Mapper App](http://data-mapper.vercel.app/).
+You can interact with the mapper by accessing this url [Data Mapper App](https://data-mapper-yc8j.vercel.app/).
 
 
 
